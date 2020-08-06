@@ -7,12 +7,12 @@ using db = double;
 using str = string;
 using ull = unsigned ll;
 
-using pi = pair<int, int>;
+using pi = pair<ll, ll>;
 using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 using pld = pair<ld, ld>;
 
-using vi = vector<int>;
+using vi = vector<ll>;
 using vd = vector<db>;
 using vld = vector<ld>;
 using vl = vector<ll>;
@@ -40,6 +40,7 @@ using vvc = vector<vc>;
 #define toupper(a) transform(all(a), a.begin(), ::toupper)
 #define gcd(a, b) ggcd(a, b)
 #define lcm(a, b) llcm(a, b)
+#define int long long
 
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
 #define F0R(i, a) FOR(i, 0, a)
@@ -129,7 +130,7 @@ ll pct(ll x) { x = (x & 0x5555555555555555LL) + ((x >> 1) & 0x5555555555555555LL
 
 
 
-int main() {
+int32_t main() {
 	setIO();
 
 	
