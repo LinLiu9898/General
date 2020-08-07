@@ -111,6 +111,8 @@ void setOut(string s) { freopen(s.c_str(),"w",stdout); }
 void unsyncIO() { ios_base::sync_with_stdio(0); cin.tie(0); cout << fixed << setprecision(20), cerr << fixed << setprecision(20); }
 void setIO(string s = "") { unsyncIO(); if(si(s)) { setIn(s + ".in"); setOut(s + ".out"); } }
 
+int fstTrue(function<bool(int)> f, int lo, int hi) { for(hi++; lo < hi;) { int mid = lo + hi; mid = (mid - (mid & 1)) / 2; f(mid) ? hi = mid : lo = mid + 1; } return lo; }
+int lstTrue(function<bool(int)> f, int lo, int hi) { for(lo--; lo < hi;) { int mid = (lo + hi + 1) / 2; f(mid) ? lo = mid : hi = mid - 1; } return lo; }
 template<class T> void uni(vector<T>& v) { sort(all(v)); v.erase(unique(all(v)), end(v)); }
 ll cdiv(const ll& a, const ll& b) { return a / b + ((a ^ b) > 0 && a % b); } // (a / b) rounded up 
 ll fdiv(const ll& a, const ll& b) { return a / b - ((a ^ b) < 0 && a % b); } // (a / b) rounded down
@@ -126,7 +128,7 @@ ull modPow(ull a, ull b, const ull mod) { if(b == 0) { return 1; } ull res = mod
 bool prime(ull n) { if(n < 2 || n % 6 % 4 != 1) { return n - 2 < 2; } ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022}, s = __builtin_ctzll(n - 1), d = n >> s; trav(i, A) { ull p = modPow(i, d, n), a = s; while(p != 1 && p != n - 1 && i % n && a--) { p = modMul(p, p, n); } if(p != n - 1 && a != s) { return false; } } return true; }
 ll C(ll n, ll k) { ll ans = 1; for(ll i = 1; i <= k; ++i) { ans = ans * (n - i + 1) / i; } return ans; }
 ll pct(ll x) { x = (x & 0x5555555555555555LL) + ((x >> 1) & 0x5555555555555555LL); x = (x & 0x3333333333333333LL) + ((x >> 2) & 0x3333333333333333LL); x = (x & 0x0F0F0F0F0F0F0F0FLL) + ((x >> 4) & 0x0F0F0F0F0F0F0F0FLL); return (x * 0x0101010101010101LL) >> 56; }
-// uni: O(nlog(n)), cdiv: O(1), even: O(1), odd: O(1), gcd: O(log(min(a, b))), gld: O(1), lcm: O(log(min(a, b))), power: O(log(b)), prime: O(sqrt(a)), C: O(k)
+// fstTrue: O(log(hi - lo)), lstTrue: O(log(hi - lo)) uni: O(nlog(n)), cdiv: O(1), even: O(1), odd: O(1), gcd: O(log(min(a, b))), gld: O(1), lcm: O(log(min(a, b))), power: O(log(b)), prime: O(sqrt(a)), C: O(k)
 
 
 
