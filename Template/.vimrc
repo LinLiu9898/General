@@ -73,12 +73,12 @@ inoremap {} {}
 "inoremap ' ''<left>
 "inoremap [ []<left>
 
-nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>132<CR>
-nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>131<CR> 
+nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>134<CR>
+nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>133<CR> 
 nnoremap frac :-1read C:\Users\Home-T410\Desktop\Template\Fractions.cpp<CR>
 nnoremap bigint :-1read C:\Users\Home-T410\Desktop\Template\BigInt.cpp<CR>
 nnoremap open : :tabnew C:\Users\Home-T410\Desktop\Vim\A.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\B.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\C.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\D.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\E.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\F.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\G.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\H.cpp<CR>:tabr<CR>:q!<CR>
-
+nnoremap umap :-1read C:\Users\Home-T410\Desktop\Template\Unordered_MapHash.cpp<CR>
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -O2 -Wall % -o %:r && %:r.exe <CR>
 autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -O2 -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F10> :!%:r<CR>
