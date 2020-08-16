@@ -41,7 +41,7 @@ using vvc = vector<vc>;
 #define gcd(a, b) ggcd(a, b)
 #define lcm(a, b) llcm(a, b)
 #define sor(a) sort(all(a))
-#define res(a, n) a.rs(n); re(a)
+#define resa(a, n) a.rs(n); re(a)
 #define int long long
 
 #define FOR(i, a, b) for (int i = (a); i < (b); ++i)
@@ -98,7 +98,7 @@ template<class H, class... T> void EDBG(string names, H h, T... t) { auto pos = 
 // OUTPUT
 void pr() {}
 template<class H, class... T> void pr(const H& a, const T&... b) { cout << a; pr(b...); }
-void ps() { cout << nl; }
+void ps() { cout << endl; }
 template<class H, class...T> void ps(const H& a, const T&... b) { pr(a, ' '); ps(b...); }
 
 // FILE I/O
@@ -112,24 +112,20 @@ ll cdiv(const ll& a, const ll& b) { return a / b + ((a ^ b) > 0 && a % b); } // 
 ll fdiv(const ll& a, const ll& b) { return a / b - ((a ^ b) < 0 && a % b); } // (a / b) rounded down
 int fstTrue(function<bool(int)> f, int lo, int hi) { for(hi++; lo < hi;) { int mid = fdiv((lo + hi), 2); f(mid) ? hi = mid : lo = mid + 1; } return lo; }
 int lstTrue(function<bool(int)> f, int lo, int hi) { for(lo--; lo < hi;) { int mid = fdiv((lo + hi + 1), 2); f(mid) ? lo = mid : hi = mid - 1; } return lo; }
-bool even(const ll& a) { return !(a & 1); }
-bool odd(const ll& a) { return (a & 1); }
 ll ggcd(ll a, ll b) { while(b) { a %= b; swap(a, b); } return a; }
-ll gld(const ll& a, const ll& b) { return (a - (a % b)); } // returns the greatest number less than or equal to a and divides b evenly
 ll llcm(const ll& a, const ll& b) { return (a / (ggcd(a, b)) * b); }
-ll power(ll a, ll b, ll c) { ll res = 1; a %= c; while(b > 0) { if(odd(b)) res = res * a % c; a = a * a % c; b >>= 1; } return res; }
-ll power(ll a, ll b) { ll res = 1; while(b > 0) { if(odd(b)) res = res * a; a = a * a; b >>= 1; } return res; }
+ll power(ll a, ll b, ll c) { ll res = 1; a %= c; while(b > 0) { if(b & 1) res = res * a % c; a = a * a % c; b >>= 1; } return res; }
+ll power(ll a, ll b) { ll res = 1; while(b > 0) { if(b & 1) res = res * a; a = a * a; b >>= 1; } return res; }
 ull modMul(ull a, ull b, const ull mod) { ll ret = a * b - mod * (ull)((ld)a * b / mod); return ret + ((ret < 0) - (ret >= (ll)mod)) * mod; }
 ull modPow(ull a, ull b, const ull mod) { if(b == 0) { return 1; } ull res = modPow(a, b / 2, mod); res = modMul(res, res, mod); return b & 1 ? modMul(res, a, mod) : res; }
 bool prime(ull n) { if(n < 2 || n % 6 % 4 != 1) { return n - 2 < 2; } ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022}, s = __builtin_ctzll(n - 1), d = n >> s; trav(i, A) { ull p = modPow(i, d, n), a = s; while(p != 1 && p != n - 1 && i % n && a--) { p = modMul(p, p, n); } if(p != n - 1 && a != s) { return false; } } return true; }
-ll C(ll n, ll k) { ll ans = 1; for(ll i = 1; i <= k; ++i) { ans = ans * (n - i + 1) / i; } return ans; }
 ll pct(ll x) { x = (x & 0x5555555555555555LL) + ((x >> 1) & 0x5555555555555555LL); x = (x & 0x3333333333333333LL) + ((x >> 2) & 0x3333333333333333LL); x = (x & 0x0F0F0F0F0F0F0F0FLL) + ((x >> 4) & 0x0F0F0F0F0F0F0F0FLL); return (x * 0x0101010101010101LL) >> 56; }
-// uni: O(nlog(n)), cdiv: O(1), fdiv: O(1), fstTrue: O(log(hi - lo)), lstTrue: O(log(hi - lo)), even: O(1), odd: O(1), gcd: O(log(min(a, b))), gld: O(1), lcm: O(log(min(a, b))), power: O(log(b)), prime: O(sqrt(a)), C: O(k)
+// uni: O(nlog(n)), cdiv: O(1), fdiv: O(1), fstTrue: O(log(hi - lo)), lstTrue: O(log(hi - lo)), gcd: O(log(min(a, b))), lcm: O(log(min(a, b))), power: O(log(b)), prime: O(sqrt(a)), pct: O(1)
 
 const int MX = 2e5 + 5;
 const long long INF = 1e18;
 const long long MOD = 1e9 + 7; // 998244353
-const long double PI = acos((ld) - 1);
+const long double PI = acos((ld)-1);
 const long double EPS = 1e-18;
 
 
