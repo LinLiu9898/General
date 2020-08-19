@@ -96,10 +96,12 @@ template<class H, class... T> void EDBG(string names, H h, T... t) { auto pos = 
 #endif
 
 // OUTPUT
-void pr() {}
-template<class H, class... T> void pr(const H& a, const T&... b) { cout << a; pr(b...); }
-void ps() { cout << endl; }
-template<class H, class...T> void ps(const H& a, const T&... b) { pr(a, ' '); ps(b...); }
+template<class A> void pr(A x) { cout << ts(x); }
+template<class H, class... T> void pr(const H& h, const T&... t) { 
+	pr(h); pr(t...); }
+void ps() { pr("\n"); } // print w/ spaces
+template<class H, class... T> void ps(const H& h, const T&... t) { 
+	pr(h); if(sizeof...(t)) pr(" "); ps(t...); }
 
 // FILE I/O
 void setIn(string s) { freopen(s.c_str(),"r",stdin); }
