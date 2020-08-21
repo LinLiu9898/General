@@ -43,8 +43,6 @@ using vvc = vector<vc>;
 #define sor(a) sort(all(a))
 #define res(a, n) a.rs(n); re(a)
 #define int long long
-#define min(...) min({__VA_ARGS__})
-#define max(...) max({__VA_ARGS__})
 #define sort_by(x, y) sort(all(x), [&](const auto& a, const auto& b) { return y; } )
 
 #define rep(i, a, b) for(auto i = (a); i < (b); ++i)
