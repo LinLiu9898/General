@@ -41,13 +41,16 @@ using vvc = vector<vc>;
 #define gcd(a, b) ggcd(a, b)
 #define lcm(a, b) llcm(a, b)
 #define sor(a) sort(all(a))
-#define resa(a, n) a.rs(n); re(a)
+#define res(a, n) a.rs(n); re(a)
 #define int long long
+#define min(...) min({__VA_ARGS__})
+#define max(...) max({__VA_ARGS__})
+#define sort_by(x, y) sort(all(x), [&](const auto& a, const auto& b) { return y; } )
 
-#define FOR(i, a, b) for (int i = (a); i < (b); ++i)
-#define F0R(i, a) FOR(i, 0, a)
-#define ROF(i, a, b) for (int i = (b) - 1; i >= (a); --i)
-#define R0F(i, a) ROF(i, 0, a)
+#define rep(i, a, b) for(auto i = (a); i < (b); ++i)
+#define rop(i, a) rep(i, 0, a)
+#define per(i, a, b) for(auto i = (b) - 1; i >= (a); --i)
+#define por(i, a) per(i, 0, a)
 #define trav(i, a) for (auto& i: a)
 
 // INPUT
