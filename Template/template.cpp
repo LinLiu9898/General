@@ -25,6 +25,9 @@ using vvi = vector<vl>;
 using vvl = vector<vl>;
 using vvc = vector<vc>;
 
+template<class T> using vt = vector<T>;
+template<class T> using vvt = vector<vt<T>>;
+
 #define pb push_back
 #define eb emplace_back
 #define mp make_pair
@@ -38,8 +41,6 @@ using vvc = vector<vc>;
 #define nl "\n"
 #define tolower(a) transform(all(a), a.begin(), ::tolower)
 #define toupper(a) transform(all(a), a.begin(), ::toupper)
-#define gcd(a, b) ggcd(a, b)
-#define lcm(a, b) llcm(a, b)
 #define sor(a) sort(all(a))
 #define res(a, n) a.rs(n); re(a)
 #define int long long
@@ -89,11 +90,9 @@ template<class H, class... T> void EDBG(string names, H h, T... t) { auto pos = 
 #ifdef LOCAL // compile with -DLOCAL
 #define dbg(...) cerr << "[" << #__VA_ARGS__ << "]: [", DBG(__VA_ARGS__)
 #define edbg(...) EDBG(#__VA_ARGS__, __VA_ARGS__)
-#define chk(...) if(!(__VA_ARGS__)) cerr << "In function " << "(" << __FUNCTION__ << "), " << "CHK FAILED: (" << #__VA_ARGS__ << ")" << nl, exit(0);
 #else
 #define dbg(...) 42
 #define edbg(...) 7
-#define chk(...) 0
 #endif
 
 // OUTPUT
@@ -115,8 +114,6 @@ ll cdiv(const ll& a, const ll& b) { return a / b + ((a ^ b) > 0 && a % b); } // 
 ll fdiv(const ll& a, const ll& b) { return a / b - ((a ^ b) < 0 && a % b); } // (a / b) rounded down
 int fstTrue(function<bool(int)> f, int lo, int hi) { for(hi++; lo < hi;) { int mid = fdiv((lo + hi), 2); f(mid) ? hi = mid : lo = mid + 1; } return lo; }
 int lstTrue(function<bool(int)> f, int lo, int hi) { for(lo--; lo < hi;) { int mid = fdiv((lo + hi + 1), 2); f(mid) ? lo = mid : hi = mid - 1; } return lo; }
-ll ggcd(ll a, ll b) { while(b) { a %= b; swap(a, b); } return a; }
-ll llcm(const ll& a, const ll& b) { return (a / (ggcd(a, b)) * b); }
 ll power(ll a, ll b, ll c) { ll res = 1; a %= c; while(b > 0) { if(b & 1) res = res * a % c; a = a * a % c; b >>= 1; } return res; }
 ll power(ll a, ll b) { ll res = 1; while(b > 0) { if(b & 1) res = res * a; a = a * a; b >>= 1; } return res; }
 ull modMul(ull a, ull b, const ull mod) { ll ret = a * b - mod * (ull)((ld)a * b / mod); return ret + ((ret < 0) - (ret >= (ll)mod)) * mod; }
