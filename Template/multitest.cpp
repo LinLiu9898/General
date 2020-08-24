@@ -17,6 +17,7 @@ using vd = vector<db>;
 using vl = vector<ll>;
 using vld = vector<ld>;
 using vs = vector<str>;
+using vb = vector<bool>;
 using vc = vector<char>;
 using vpi = vector<pl>;
 using vpl = vector<pl>;
