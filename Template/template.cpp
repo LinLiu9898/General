@@ -12,7 +12,7 @@ using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 using pld = pair<ld, ld>;
 
-using vi = vector<ll>;
+using vi = vector<int>;
 using vd = vector<db>;
 using vld = vector<ld>;
 using vl = vector<ll>;
@@ -24,9 +24,6 @@ using vpd = vector<pd>;
 using vvi = vector<vl>;
 using vvl = vector<vl>;
 using vvc = vector<vc>;
-
-template<class T> using vt = vector<T>;
-template<class T> using vvt = vector<vt<T>>;
 
 #define pb push_back
 #define eb emplace_back
@@ -71,6 +68,21 @@ template<class A, size_t SZ> void re(array<A, SZ>& x) { trav(i, x) re(i); }
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 ll rand(ll a, ll b) { return uniform_int_distribution<ll>(a, b)(rng); }
 
+template<class T> bool ckmin(T& a, const T& b) { return b < a ? a = b, 1 : 0; }
+template<class T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0; }
+template<class T> void uni(vector<T>& v) { sort(all(v)); v.erase(unique(all(v)), end(v)); }
+ll cdiv(const ll& a, const ll& b) { return a / b + ((a ^ b) > 0 && a % b); } // (a / b) rounded up 
+ll fdiv(const ll& a, const ll& b) { return a / b - ((a ^ b) < 0 && a % b); } // (a / b) rounded down
+int fstTrue(function<bool(int)> f, int lo, int hi) { for(hi++; lo < hi;) { int mid = fdiv((lo + hi), 2); f(mid) ? hi = mid : lo = mid + 1; } return lo; }
+int lstTrue(function<bool(int)> f, int lo, int hi) { for(lo--; lo < hi;) { int mid = fdiv((lo + hi + 1), 2); f(mid) ? lo = mid : hi = mid - 1; } return lo; }
+ll power(ll a, ll b, ll c) { ll res = 1; a %= c; while(b > 0) { if(b & 1) res = res * a % c; a = a * a % c; b >>= 1; } return res; }
+ll power(ll a, ll b) { ll res = 1; while(b > 0) { if(b & 1) res = res * a; a = a * a; b >>= 1; } return res; }
+ull modMul(ull a, ull b, const ull mod) { ll ret = a * b - mod * (ull)((ld)a * b / mod); return ret + ((ret < 0) - (ret >= (ll)mod)) * mod; }
+ull modPow(ull a, ull b, const ull mod) { if(b == 0) { return 1; } ull res = modPow(a, b / 2, mod); res = modMul(res, res, mod); return b & 1 ? modMul(res, a, mod) : res; }
+bool prime(ull n) { if(n < 2 || n % 6 % 4 != 1) { return n - 2 < 2; } ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022}, s = __builtin_ctzll(n - 1), d = n >> s; trav(i, A) { ull p = modPow(i, d, n), a = s; while(p != 1 && p != n - 1 && i % n && a--) { p = modMul(p, p, n); } if(p != n - 1 && a != s) { return false; } } return true; }
+ll pct(ll x) { x = (x & 0x5555555555555555LL) + ((x >> 1) & 0x5555555555555555LL); x = (x & 0x3333333333333333LL) + ((x >> 2) & 0x3333333333333333LL); x = (x & 0x0F0F0F0F0F0F0F0FLL) + ((x >> 4) & 0x0F0F0F0F0F0F0F0FLL); return (x * 0x0101010101010101LL) >> 56; }
+// uni: O(nlog(n)), cdiv: O(1), fdiv: O(1), fstTrue: O(log(hi - lo)), lstTrue: O(log(hi - lo)), gcd: O(log(min(a, b))), lcm: O(log(min(a, b))), power: O(log(b)), prime: O(sqrt(a)), pct: O(1)
+
 // TO_STRING
 #define ts to_string
 string ts(char c) { return string(1, c); }
@@ -96,31 +108,18 @@ template<class H, class... T> void EDBG(string names, H h, T... t) { auto pos = 
 #endif
 
 // OUTPUT
-template<class A> void pr(A x) { cout << ts(x); }
-template<class H, class... T> void pr(const H& h, const T&... t) { 
-	pr(h); pr(t...); }
+template<class T> void pr(T x) { cout << ts(x); }
+template<class T, class... H> void pr(const T& t, const H&... h) { 
+	pr(t); pr(h...); }
 void ps() { pr("\n"); } // print w/ spaces
-template<class H, class... T> void ps(const H& h, const T&... t) { 
-	pr(h); if(sizeof...(t)) pr(" "); ps(t...); }
+template<class T, class... H> void ps(const T& t, const H&... h) { 
+	pr(t); if(sizeof...(h)) pr(" "); ps(h...); }
 
 // FILE I/O
 void setIn(string s) { freopen(s.c_str(),"r",stdin); }
 void setOut(string s) { freopen(s.c_str(),"w",stdout); }
-void unsyncIO() { ios_base::sync_with_stdio(0); cin.tie(0); cout << fixed << setprecision(20), cerr << fixed << setprecision(20); }
+void unsyncIO() { ios_base::sync_with_stdio(0); cin.tie(0); cout << fixed << setprecision(20); }
 void setIO(string s = "") { unsyncIO(); if(si(s)) { setIn(s + ".in"); setOut(s + ".out"); } }
-
-template<class T> void uni(vector<T>& v) { sort(all(v)); v.erase(unique(all(v)), end(v)); }
-ll cdiv(const ll& a, const ll& b) { return a / b + ((a ^ b) > 0 && a % b); } // (a / b) rounded up 
-ll fdiv(const ll& a, const ll& b) { return a / b - ((a ^ b) < 0 && a % b); } // (a / b) rounded down
-int fstTrue(function<bool(int)> f, int lo, int hi) { for(hi++; lo < hi;) { int mid = fdiv((lo + hi), 2); f(mid) ? hi = mid : lo = mid + 1; } return lo; }
-int lstTrue(function<bool(int)> f, int lo, int hi) { for(lo--; lo < hi;) { int mid = fdiv((lo + hi + 1), 2); f(mid) ? lo = mid : hi = mid - 1; } return lo; }
-ll power(ll a, ll b, ll c) { ll res = 1; a %= c; while(b > 0) { if(b & 1) res = res * a % c; a = a * a % c; b >>= 1; } return res; }
-ll power(ll a, ll b) { ll res = 1; while(b > 0) { if(b & 1) res = res * a; a = a * a; b >>= 1; } return res; }
-ull modMul(ull a, ull b, const ull mod) { ll ret = a * b - mod * (ull)((ld)a * b / mod); return ret + ((ret < 0) - (ret >= (ll)mod)) * mod; }
-ull modPow(ull a, ull b, const ull mod) { if(b == 0) { return 1; } ull res = modPow(a, b / 2, mod); res = modMul(res, res, mod); return b & 1 ? modMul(res, a, mod) : res; }
-bool prime(ull n) { if(n < 2 || n % 6 % 4 != 1) { return n - 2 < 2; } ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022}, s = __builtin_ctzll(n - 1), d = n >> s; trav(i, A) { ull p = modPow(i, d, n), a = s; while(p != 1 && p != n - 1 && i % n && a--) { p = modMul(p, p, n); } if(p != n - 1 && a != s) { return false; } } return true; }
-ll pct(ll x) { x = (x & 0x5555555555555555LL) + ((x >> 1) & 0x5555555555555555LL); x = (x & 0x3333333333333333LL) + ((x >> 2) & 0x3333333333333333LL); x = (x & 0x0F0F0F0F0F0F0F0FLL) + ((x >> 4) & 0x0F0F0F0F0F0F0F0FLL); return (x * 0x0101010101010101LL) >> 56; }
-// uni: O(nlog(n)), cdiv: O(1), fdiv: O(1), fstTrue: O(log(hi - lo)), lstTrue: O(log(hi - lo)), gcd: O(log(min(a, b))), lcm: O(log(min(a, b))), power: O(log(b)), prime: O(sqrt(a)), pct: O(1)
 
 const int MX = 2e5 + 5;
 const long long INF = 1e18;
