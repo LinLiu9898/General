@@ -12,10 +12,10 @@ using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 using pld = pair<ld, ld>;
 
-using vi = vector<int>;
+using vi = vector<ll>;
 using vd = vector<db>;
-using vld = vector<ld>;
 using vl = vector<ll>;
+using vld = vector<ld>;
 using vs = vector<str>;
 using vc = vector<char>;
 using vpi = vector<pl>;
