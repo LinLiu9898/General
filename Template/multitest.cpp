@@ -28,7 +28,7 @@ using vvc = vector<vc>;
 
 #define pb push_back
 #define eb emplace_back
-#define mp make_pair
+#define mp(a, b) make_pair(a, b)
 #define f first
 #define s second
 #define si(a) ((int)(a).size())
@@ -46,7 +46,7 @@ using vvc = vector<vc>;
 #define rop(i, a) rep(i, 0, a)
 #define per(i, a, b) for(auto i = (b) - 1; i >= (a); --i)
 #define por(i, a) per(i, 0, a)
-#define trav(i, a) for (auto& i: a)
+#define trav(i, a) for(auto& i: a)
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 ll rand(ll a, ll b) { return uniform_int_distribution<ll>(a, b)(rng); }
@@ -60,9 +60,9 @@ int fstTrue(function<bool(int)> f, int lo, int hi) { for(hi++; lo < hi;) { int m
 int lstTrue(function<bool(int)> f, int lo, int hi) { for(lo--; lo < hi;) { int mid = fdiv((lo + hi + 1), 2); f(mid) ? lo = mid : hi = mid - 1; } return lo; }
 int power(ll a, ll b, ll c) { ll res = 1; a %= c; while(b > 0) { if(b & 1) res = res * a % c; a = a * a % c; b >>= 1; } return res; }
 int power(ll a, ll b) { ll res = 1; while(b > 0) { if(b & 1) res = res * a; a = a * a; b >>= 1; } return res; }
-ull modMul(ull a, ull b, const ull mod) { ll ret = a * b - mod * (ull)((ld)a * b / mod); return ret + ((ret < 0) - (ret >= (ll)mod)) * mod; }
-ull modPow(ull a, ull b, const ull mod) { if(b == 0) { return 1; } ull res = modPow(a, b / 2, mod); res = modMul(res, res, mod); return b & 1 ? modMul(res, a, mod) : res; }
-bool prime(ull n) { if(n < 2 || n % 6 % 4 != 1) { return n - 2 < 2; } ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022}, s = __builtin_ctzll(n - 1), d = n >> s; trav(i, A) { ull p = modPow(i, d, n), a = s; while(p != 1 && p != n - 1 && i % n && a--) { p = modMul(p, p, n); } if(p != n - 1 && a != s) { return false; } } return true; }
+ull modmul(ull a, ull b, const ull mod) { ll ret = a * b - mod * (ull)((ld)a * b / mod); return ret + ((ret < 0) - (ret >= (ll)mod)) * mod; }
+ull modpow(ull a, ull b, const ull mod) { if(b == 0) { return 1; } ull res = modpow(a, b / 2, mod); res = modmul(res, res, mod); return b & 1 ? modmul(res, a, mod) : res; }
+bool prime(ull n) { if(n < 2 || n % 6 % 4 != 1) { return n - 2 < 2; } ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022}, s = __builtin_ctzll(n - 1), d = n >> s; trav(i, A) { ull p = modpow(i, d, n), a = s; while(p != 1 && p != n - 1 && i % n && a--) { p = modmul(p, p, n); } if(p != n - 1 && a != s) { return false; } } return true; }
 int pct(int x) { x = (x & 0x5555555555555555LL) + ((x >> 1) & 0x5555555555555555LL); x = (x & 0x3333333333333333LL) + ((x >> 2) & 0x3333333333333333LL); x = (x & 0x0F0F0F0F0F0F0F0FLL) + ((x >> 4) & 0x0F0F0F0F0F0F0F0FLL); return (x * 0x0101010101010101LL) >> 56; }
 // uni: O(nlog(n)), cdiv: O(1), fdiv: O(1), fstTrue: O(log(hi - lo)), lstTrue: O(log(hi - lo)), gcd: O(log(min(a, b))), lcm: O(log(min(a, b))), power: O(log(b)), prime: O(sqrt(a)), pct: O(1)
 
@@ -112,7 +112,7 @@ int32_t main() {
 	setIO();
 
 	int T;
-	re(T);
+	cin >> T;
 	while(T--) {
 		solve();
 	}
