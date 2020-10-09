@@ -74,8 +74,8 @@ inoremap {} {}
 "inoremap ' ''<left>
 "inoremap [ []<left>
 
-nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>104<CR>
-nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>103<CR> 
+nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>103<CR>
+nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>102<CR> 
 nnoremap frac :-1read C:\Users\Home-T410\Desktop\Template\Fractions.cpp<CR>
 nnoremap bigint :-1read C:\Users\Home-T410\Desktop\Template\BigInt.cpp<CR>
 nnoremap umap :-1read C:\Users\Home-T410\Desktop\Template\Unordered_MapHash.cpp<CR>
@@ -83,7 +83,7 @@ nnoremap modular :-1read C:\Users\Home-T410\Desktop\Template\ModularArithmetic.c
 nnoremap open : :tabnew C:\Users\Home-T410\Desktop\Vim\A.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\B.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\C.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\D.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\E.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\F.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\G.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\H.cpp<CR>:tabr<CR>:q!<CR>
 
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -O2 -Wall % -o %:r -Wl,--stack,268435456 && %:r.exe <CR>
-autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -O2 -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F10> :!%:r<CR>
 autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $$
 
