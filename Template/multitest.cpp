@@ -8,22 +8,18 @@ using str = string;
 using ull = unsigned ll;
 
 using pi = pair<ll, ll>;
-using pl = pair<ll, ll>;
 using pd = pair<db, db>;
 using pld = pair<ld, ld>;
 
 using vi = vector<ll>;
 using vd = vector<db>;
-using vl = vector<ll>;
 using vld = vector<ld>;
 using vs = vector<str>;
 using vb = vector<bool>;
 using vc = vector<char>;
-using vpi = vector<pl>;
-using vpl = vector<pl>;
+using vpi = vector<pi>;
 using vpd = vector<pd>;
-using vvi = vector<vl>;
-using vvl = vector<vl>;
+using vvi = vector<vi>;
 using vvc = vector<vc>;
 
 #define pb push_back
@@ -50,7 +46,7 @@ using vvc = vector<vc>;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 ll rand(ll a, ll b) { return uniform_int_distribution<ll>(a, b)(rng); }
 
-template<class T> bool ckmin(T& a, const T& b) { return b < a ? a = b, 1 : 0; }
+template<class T> bool ckmin(T& a, const T& b) { return a > b ? a = b, 1 : 0; }
 template<class T> bool ckmax(T& a, const T& b) { return a < b ? a = b, 1 : 0; }
 template<class T> void uni(vector<T>& v) { sor(v); v.erase(unique(all(v)), end(v)); }
 constexpr int cdiv(const ll& a, const ll& b) { return a / b + ((a ^ b) > 0 && a % b); } // (a / b) rounded up 
@@ -96,10 +92,10 @@ void unsyncIO() { ios_base::sync_with_stdio(0); cin.tie(0); cout << fixed << set
 void setIO(string s = "") { unsyncIO(); if(si(s)) { setIn(s + ".in"); setOut(s + ".out"); } }
 
 const int MX = 2e5 + 5;
-const long long INF = 1e18;
-const long long MOD = 1e9 + 7; // 998244353
-const long double PI = acos((ld)-1);
-const long double EPS = 1e-18;
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7; // 998244353
+const ld PI = acos((ld)-1);
+const ld EPS = 1e-18;
 
 
 
