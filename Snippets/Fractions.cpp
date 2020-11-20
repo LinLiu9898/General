@@ -2,7 +2,7 @@ struct frac {
 	ll n, d;
 	frac(ll _n, ll _d) {
 		n = _n, d = _d;
-		ll g = ggcd(n, d);
+		ll g = gcd(n, d);
 		n /= g;
 		d /= g;
 		if(d < 0) {
@@ -17,7 +17,6 @@ struct frac {
 		strm << a.n << "/" << a.d;
 		return strm;
 	}
-	friend void pr(const frac& a) { pr(a.n, "/", a.d); }
 	friend bool operator < (const frac& l, const frac& r) { return l.n * r.d < r.n * l.d; }
 	friend bool operator == (const frac& l, const frac& r) { return l.n == r.n && l.d == r.d; }
 	friend bool operator != (const frac&l, const frac& r) { return !(l == r); }
