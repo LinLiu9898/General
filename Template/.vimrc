@@ -1,3 +1,4 @@
+  
 set nocompatible
 filetype off
 filetype plugin on
@@ -74,8 +75,8 @@ inoremap {} {}
 "inoremap ' ''<left>
 "inoremap [ []<left>
 
-nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>99<CR>
-nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>98<CR> 
+nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>:call TrimEndLines()<CR>65<CR>
+nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>:call TrimEndLines()<CR>65<CR>
 nnoremap frac :-1read C:\Users\Home-T410\Desktop\Template\Fractions.cpp<CR>
 nnoremap bigint :-1read C:\Users\Home-T410\Desktop\Template\BigInt.cpp<CR>
 nnoremap umap :-1read C:\Users\Home-T410\Desktop\Template\Unordered_MapHash.cpp<CR>
@@ -86,6 +87,15 @@ nnoremap open : :tabnew C:\Users\Home-T410\Desktop\Vim\A.cpp<CR>:tabnew C:\Users
 autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F10> :!%:r<CR>
 autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $$
+autocmd filetype cpp nnoremap <C-A> :%s#\($\n\s*\)\+\%$##<CR>
+
+function TrimEndLines()
+    let save_cursor = getpos(".")
+    silent! %s#\($\n\s*\)\+\%$##
+    call setpos('.', save_cursor)
+endfunction
+
+autocmd BufWritePre *.py call TrimEndLines()
 
 set diffexpr=MyDiff()
 function MyDiff()
