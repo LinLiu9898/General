@@ -5,7 +5,6 @@ using ll = long long;
 using ld = long double;
 using db = double;
 using str = string;
-using ull = unsigned ll;
 
 #define pb push_back
 #define eb emplace_back
