@@ -18,9 +18,17 @@ const string nl = "\n";
 
 
 
+void solve() {
+	
+}
+
 int32_t main() {
 	ios::sync_with_stdio(0);
 	cin.tie(nullptr);
 
-	
+	int T;
+	cin >> T;
+	while(T--) {
+		solve();
+	}
 }
