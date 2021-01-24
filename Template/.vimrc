@@ -42,25 +42,25 @@ map <F5> :w <CR>:%y <CR>
 map vimrc :e! $HOME\_vimrc<CR>
 
 function GuiTabLabel()
-    let label = ''
-    let bufnrlist = tabpagebuflist(v:lnum)
+	let label = ''
+	let bufnrlist = tabpagebuflist(v:lnum)
 
-    for bufnr in bufnrlist
-        if getbufvar(bufnr, "&modified")
-            let label = '+'
-            break
-        endif
-    endfor
+	for bufnr in bufnrlist
+		if getbufvar(bufnr, "&modified")
+			let label = '+'
+			break
+		endif
+	endfor
 
-    let wincount = tabpagewinnr(v:lnum, '$')
-    if wincount > 1
-        let label .= wincount
-    endif
-    if label != ''
-        let label .= ' '
-    endif
+	let wincount = tabpagewinnr(v:lnum, '$')
+	if wincount > 1
+		let label .= wincount
+	endif
+	if label != ''
+		let label .= ' '
+	endif
 
-    return label . "%t"
+	return label . "%t"
 endfunction
 
 set guitablabel=%!GuiTabLabel()
@@ -81,21 +81,22 @@ nnoremap bigint :-1read C:\Users\Home-T410\Desktop\Template\BigInt.cpp<CR>
 nnoremap umap :-1read C:\Users\Home-T410\Desktop\Template\Unordered_MapHash.cpp<CR>
 nnoremap modular :-1read C:\Users\Home-T410\Desktop\Template\ModularArithmetic.cpp<CR>
 nnoremap factor :-1read C:\Users\Home-T410\Desktop\Template\FactorFast.cpp<CR>
+nnoremap dsu :-1read C:\Users\Home-T410\Desktop\Template\DSU.cpp<CR>
 nnoremap open : :tabnew C:\Users\Home-T410\Desktop\Vim\A.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\B.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\C.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\D.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\E.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\F.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\G.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\H.cpp<CR>:tabr<CR>:q!<CR>
 
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -O2 -Wall % -o %:r -Wl,--stack,268435456 && %:r.exe <CR>
-autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -O2 -g -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F10> :!%:r<CR>
 autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $$
 autocmd filetype cpp nnoremap <C-A> :%s#\($\n\s*\)\+\%$##<CR>
 
 "compilation flags for precompiling
-"g++ -std=c++17 -O2 -g -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL
+"g++ -std=c++17 -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL
 
 function TrimEndLines()
-    let save_cursor = getpos(".")
-    silent! %s#\($\n\s*\)\+\%$##
-    call setpos('.', save_cursor)
+	let save_cursor = getpos(".")
+	silent! %s#\($\n\s*\)\+\%$##
+	call setpos('.', save_cursor)
 endfunction
 
 autocmd BufWritePre *.cpp call TrimEndLines()
