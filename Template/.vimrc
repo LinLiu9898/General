@@ -36,7 +36,7 @@ set mouse=a
 set background=dark
 set noerrorbells
 
-inore jj <Esc>
+"inore jj <Esc>
 map <F2> :%y <CR>:w <CR>
 map <F5> :w <CR>:%y <CR>
 map vimrc :e! $HOME\_vimrc<CR>
@@ -74,8 +74,8 @@ inoremap {} {}
 "inoremap ' ''<left>
 "inoremap [ []<left>
 
-nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>:call TrimEndLines()<CR>18<CR>
-nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>:call TrimEndLines()<CR>18<CR>
+nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>:call TrimEndLines()<CR>19<CR>
+nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>:call TrimEndLines()<CR>22<CR>
 nnoremap frac :-1read C:\Users\Home-T410\Desktop\Template\Fractions.cpp<CR>
 nnoremap bigint :-1read C:\Users\Home-T410\Desktop\Template\BigInt.cpp<CR>
 nnoremap umap :-1read C:\Users\Home-T410\Desktop\Template\Unordered_MapHash.cpp<CR>
