@@ -16,8 +16,6 @@ const int MOD = 1e9 + 7;
 const int INF = 1e18;
 const string nl = "\n";
 
-
-
 int32_t main() {
 	ios::sync_with_stdio(0);
 	cin.tie(nullptr);
