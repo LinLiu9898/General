@@ -1,2 +1,2 @@
 # General
-Competitive Programming Stuff
+This is where you can find my competitive programming things.
