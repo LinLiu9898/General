@@ -91,4 +91,21 @@ struct modint {
 		return a /= b;
 	}
 };
+
 using mint = modint<MOD>;
+
+const int N = 1e6 + 10;
+
+vector<mint> fac(N + 10);
+
+mint C(int n, int k) {
+	return fac[n] * inv(fac[n - k] * fac[k]);
+}
+
+void precomp() {
+	fac[0] = 0;
+	fac[1] = 1;
+	for(int i = 2; i < N; ++i) {
+		fac[i] = i * fac[i - 1];
+	}
+}
