@@ -1,9 +1,8 @@
-using ull = unsigned long long;
-ull modmul(ull a, ull b, ull M) {
-	int ret = a * b - M * ull(1.L / M * a * b);
+int modmul(int a, int b, int M) {
+	int ret = a * b - M * (int)(1.L / M * a * b);
 	return ret + M * (ret < 0) - M * (ret >= (int)M);
 }
-ull modpow(ull b, ull e, ull mod) {
+int modpow(int b, int e, int mod) {
 	ull ans = 1;
 	for(; e; b = modmul(b, b, mod), e /= 2) {
 		if(e & 1) {
@@ -12,12 +11,12 @@ ull modpow(ull b, ull e, ull mod) {
 	}
 	return ans;
 }
-bool prime(ull n) {
+bool prime(int n) {
 	if(n < 2 || n % 6 % 4 != 1) return (n | 1) == 3;
-	ull A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022},
+	int A[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022},
 		s = __builtin_ctzll(n - 1), d = n >> s;
 	trav(a, A) {   // ^ count trailing zeroes
-		ull p = modpow(a%n, d, n), i = s;
+		int p = modpow(a%n, d, n), i = s;
 		while(p != 1 && p != n - 1 && a % n && i--) {
 			p = modmul(p, p, n);
 		}
@@ -27,8 +26,8 @@ bool prime(ull n) {
 	}
 	return 1;
 }
-ull pollard(ull n) {
-	auto f = [n](ull x) { return modmul(x, x, n) + 1; };
+int pollard(int n) {
+	auto f = [n](int x) { return modmul(x, x, n) + 1; };
 	ull x = 0, y = 0, t = 30, prd = 2, i = 1, q;
 	while(t++ % 40 || __gcd(prd, n) == 1) {
 		if(x == y) x = ++i, y = f(x);
