@@ -3,7 +3,7 @@ int modmul(int a, int b, int M) {
 	return ret + M * (ret < 0) - M * (ret >= (int)M);
 }
 int modpow(int b, int e, int mod) {
-	ull ans = 1;
+	int ans = 1;
 	for(; e; b = modmul(b, b, mod), e /= 2) {
 		if(e & 1) {
 			ans = modmul(ans, b, mod);
@@ -28,7 +28,7 @@ bool prime(int n) {
 }
 int pollard(int n) {
 	auto f = [n](int x) { return modmul(x, x, n) + 1; };
-	ull x = 0, y = 0, t = 30, prd = 2, i = 1, q;
+	int x = 0, y = 0, t = 30, prd = 2, i = 1, q;
 	while(t++ % 40 || __gcd(prd, n) == 1) {
 		if(x == y) x = ++i, y = f(x);
 		if((q = modmul(prd, max(x, y) - min(x, y), n))) prd = q;
@@ -39,7 +39,7 @@ int pollard(int n) {
 vector<int> factor(int n) {
 	if(n == 1) return {};
 	if(prime(n)) return {n};
-	ull x = pollard(n);
+	int x = pollard(n);
 	auto l = factor(x), r = factor(n / x);
 	l.insert(l.end(), all(r));
 	return l;
