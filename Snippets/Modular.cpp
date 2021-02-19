@@ -35,13 +35,17 @@ struct modint {
 		return is;
 	}
 	modint& operator += (const modint& m) {
-		if((v += m.v) >= MD) {
-			v -= MD;
+		v += m.v;
+		v %= MD;
+		if(v < 0) {
+			v += MD;
 		}
 		return *this;
 	}
 	modint& operator -= (const modint& m) {
-		if((v -= m.v) < 0) {
+		v -= m.v;
+		v %= MD;
+		if(v < 0) {
 			v += MD;
 		}
 		return *this;
@@ -53,7 +57,7 @@ struct modint {
 	modint& operator /= (const modint& m) {
 		return (*this) *= inv(m);
 	}
-	friend modint pow(modint a, int p) {
+	friend modint power(modint a, int p) {
 		modint ans = 1;
 		assert(p >= 0);
 		while(p > 0) {
@@ -67,7 +71,7 @@ struct modint {
 	}
 	friend modint inv(const modint& a) {
 		assert(a.v != 0);
-		return pow(a, MD - 2);
+		return power(a, MD - 2);
 	}
 	modint operator - () const {
 		return modint(-v);
