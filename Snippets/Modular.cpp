@@ -35,17 +35,13 @@ struct modint {
 		return is;
 	}
 	modint& operator += (const modint& m) {
-		v += m.v;
-		v %= MD;
-		if(v < 0) {
-			v += MD;
+		if((v += m.v) >= MD) {
+			v -= MD;
 		}
 		return *this;
 	}
 	modint& operator -= (const modint& m) {
-		v -= m.v;
-		v %= MD;
-		if(v < 0) {
+		if((v -= m.v) < 0) {
 			v += MD;
 		}
 		return *this;
