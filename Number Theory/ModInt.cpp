@@ -53,14 +53,15 @@ struct modint {
 	modint& operator /= (const modint& m) {
 		return (*this) *= inv(m);
 	}
-	friend modint power(modint a, int p) {
-		modint ans = 1;
+	template <class T>
+	friend modint power(T a, int p) {
+		modint ans = 1, hld = a;
 		assert(p >= 0);
 		while(p > 0) {
 			if(p & 1) {
-				ans *= a;
+				ans *= hld;
 			}
-			a *= a;
+			hld *= hld;
 			p >>= 1;
 		}
 		return ans;
