@@ -1,7 +1,7 @@
 template <class T>
 struct DSU {
 	vector<int> par, size;
-	void init(int n) {
+	DSU(int n) {
 		par = vector<int>(n + 10);
 		size = vector<int>(n + 10, 1LL);
 		for(int i = 0; i < n + 5; ++i) {
