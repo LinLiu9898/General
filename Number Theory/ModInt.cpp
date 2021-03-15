@@ -53,19 +53,6 @@ struct modint {
 	modint& operator /= (const modint& m) {
 		return (*this) *= inv(m);
 	}
-	template <class T>
-	friend modint power(T a, int p) {
-		modint ans = 1, hld = a;
-		assert(p >= 0);
-		while(p > 0) {
-			if(p & 1) {
-				ans *= hld;
-			}
-			hld *= hld;
-			p >>= 1;
-		}
-		return ans;
-	}
 	friend modint inv(const modint& a) {
 		assert(a.v != 0);
 		return power(a, MD - 2);
@@ -95,6 +82,20 @@ struct modint {
 
 using mint = modint<MOD>;
 
+template <class T>
+T power(T a, int p) {
+	T ans = 1, hld = a;
+	assert(p >= 0);
+	while(p > 0) {
+		if(p & 1) {
+			ans *= hld;
+		}
+		hld *= hld;
+		p >>= 1;
+	}
+	return ans;
+}
+
 const int N = 1e6 + 10;
 
 vector<mint> fac(N + 10);
@@ -104,9 +105,8 @@ mint C(int n, int k) {
 }
 
 void precomp() {
-	fac[0] = 0;
-	fac[1] = 1;
-	for(int i = 2; i < N; ++i) {
-		fac[i] = i * fac[i - 1];
+	fac[0] = fac[1] = 1;
+	for(int i = 2; i <= N + 2; ++i) {
+		fac[i] = (mint)i * fac[i - 1];
 	}
 }
