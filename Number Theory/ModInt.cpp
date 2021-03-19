@@ -15,6 +15,7 @@ struct modint {
 			v += MD;
 		}
 	}
+
 	friend bool operator == (const modint& a, const modint& b) {
 		return a.v == b.v;
 	}
@@ -24,6 +25,7 @@ struct modint {
 	friend bool operator < (const modint& a, const modint& b) {
 		return a.v < b.v;
 	}
+
 	friend ostream& operator << (ostream& os, const modint& m) {
 		os << m.v;
 		return os;
@@ -34,6 +36,7 @@ struct modint {
 		m.v = x;
 		return is;
 	}
+
 	modint& operator += (const modint& m) {
 		if((v += m.v) >= MD) {
 			v -= MD;
@@ -53,19 +56,33 @@ struct modint {
 	modint& operator /= (const modint& m) {
 		return (*this) *= inv(m);
 	}
+
 	friend modint inv(const modint& a) {
 		assert(a.v != 0);
 		return power(a, MD - 2);
 	}
+	friend modint power(modint a, int p) {
+		modint res = 1;
+		assert(p >= 0);
+		for(; p; p >>= 1, a *= a) {
+			if(p & 1) {
+				res *= a;
+			}
+		}
+		return res;
+	}
+
 	modint operator - () const {
 		return modint(-v);
 	}
+
 	modint& operator ++ () {
 		return *this += 1;
 	}
 	modint& operator -- () {
 		return *this -= 1;
 	}
+
 	friend modint operator + (modint a, const modint& b) {
 		return a += b;
 	}
@@ -82,31 +99,28 @@ struct modint {
 
 using mint = modint<MOD>;
 
-template <class T>
-T power(T a, int p) {
-	T ans = 1, hld = a;
-	assert(p >= 0);
-	while(p > 0) {
-		if(p & 1) {
-			ans *= hld;
-		}
-		hld *= hld;
-		p >>= 1;
-	}
-	return ans;
-}
-
 const int N = 1e6 + 10;
 
-vector<mint> fac(N + 10);
+bool is_precomped = false;
+
+vector<mint> fac(N + 10), ifac(N + 10);
 
 mint C(int n, int k) {
-	return fac[n] * inv(fac[n - k] * fac[k]);
+	assert(is_precomped);
+	if(k < 0 || k > n) {
+		return 0;
+	}
+	return fac[n] * ifac[k] * ifac[n - k];
 }
 
 void precomp() {
+	is_precomped = true;
 	fac[0] = fac[1] = 1;
-	for(int i = 2; i <= N + 2; ++i) {
+	for(int i = 2; i < N + 10; ++i) {
 		fac[i] = (mint)i * fac[i - 1];
+	}
+	ifac.back() = (mint)1 / fac.back();
+	for(int i = N + 9; i > 0; --i) {
+		ifac[i - 1] = i * ifac[i];
 	}
 }
