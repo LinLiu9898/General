@@ -17,7 +17,7 @@ void sieve() {
 			isprime[j] = 0;
 		}
 	}
-	for(int i = 2; i < N; ++i) {
+	for(int i = 2; i < N; ++i) {
 		if(isprime[i]) {
 			primes.pb(i);
 		}
