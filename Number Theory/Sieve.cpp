@@ -1,19 +1,24 @@
-vector<bool> prime;
+const int N = 5e6;
+
+bitset<N> isprime;
 vector<int> primes;
 
-void sieve(int n) {
-	prime.assign(n + 1, true);
-	prime[0] = prime[1] = false;
-	primes.clear();
-	for(int i = 2; i * i <= n; ++i) {
-		if(prime[i]) {
-			for(int j = i * i; j <= n; j += i) {
-				prime[j] = false;
-			}
+void sieve() {
+	isprime.set();
+	isprime[0] = isprime[1] = 0;
+	for(int i = 4; i < N; i += 2) {
+		isprime[i] = 0;
+	}
+	for(int i = 3; i * i < N; i += 2) {
+		if(!isprime[i]) {
+			continue;
+		}
+		for(int j = i * i; j < N; j += i * 2) {
+			isprime[j] = 0;
 		}
 	}
-	for(int i = 0; i < si(prime); ++i) {
-		if(prime[i]) {
+	for(int i = 2; i < N; ++i) {
+		if(isprime[i]) {
 			primes.pb(i);
 		}
 	}
