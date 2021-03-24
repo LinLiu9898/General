@@ -2,26 +2,22 @@ template <class T>
 struct fenwick {
 	int n;
 	vector<T> tree;
-	fenwick(const vector<T>& a) {
-		n = si(a);
-		tree.resize(n + 2);
-		for(int i = 0; i < si(a); ++i) {
-			update(i, a[i]);
-		}
+	const T ID = 0LL;
+	fenwick(const int& _n) {
+		n = _n;
+		tree.assign(n + 2, ID);
 	}
-	void update(int pos, T dif) {
-		++pos;
-		for(int i = pos; i <= n; i += (i & -i)) {
+	void add(int pos, T dif) {
+		for(int i = pos + 1; i <= n; i += (i & -i)) {
 			tree[i] += dif;
 		}
 	}
 	void set(int pos, T val) {
-		update(pos, val - query(pos, pos));
+		add(pos, val - query(pos, pos));
 	}
 	T query(int l) {
-		++l;
 		T sum = 0;
-		for(int i = l; i > 0; i -= (i & -i)) {
+		for(int i = l + 1; i > 0; i -= (i & -i)) {
 			sum += tree[i];
 		}
 		return sum;
