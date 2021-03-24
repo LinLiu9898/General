@@ -2,11 +2,11 @@ template <class T>
 struct fenwick2d {
 	int n, m;
 	vector<vector<T>> tree;
-	const T ID = 0LL;
+	const T unit = 0LL;
 	fenwick2d(const int& _n, const int& _m) {
 		n = _n;
 		m = _m;
-		tree.assign(n + 2, vector<T>(m + 2, ID));
+		tree.assign(n + 2, vector<T>(m + 2, unit));
 	}
 	void add(int x, int y, int dif) {
 		for(int i = x + 1; i <= n; i += (i & -i)) {
