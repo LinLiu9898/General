@@ -1,29 +1,24 @@
 template <class T>
 struct fenwick2d {
-	int n;
+	int n, m;
 	vector<vector<T>> tree;
-	fenwick2d(const vector<vector<T>>& a) {
-		n = si(a);
-		tree.resize(n + 1, vector<T>(n + 1));
-		for(int i = 0; i < si(a); ++i) {
-			for(int j = 0; j < si(a[i]); ++j) {
-				update(i, j, a[i][j]);
-			}
-		}
+	const T ID = 0LL;
+	fenwick2d(const int& _n, const int& _m) {
+		n = _n;
+		m = _m;
+		tree.assign(n + 2, vector<T>(m + 2, ID));
 	}
-	void update(int x, int y, int dif) {
-		++x, ++y;
-		for(int i = x; i <= n; i += (i & -i)) {
-			for(int j = y; j <= n; j += (j & -j)) {
+	void add(int x, int y, int dif) {
+		for(int i = x + 1; i <= n; i += (i & -i)) {
+			for(int j = y + 1; j <= n; j += (j & -j)) {
 				tree[i][j] += dif;
 			}
 		}
 	}
 	T query(int x, int y) {
-		++x, ++y;
 		T sum = 0;
-		for(int i = x; i > 0; i -= (i & -i)) {
-			for(int j = y; j > 0; j -= (j & -j)) {
+		for(int i = x + 1; i > 0; i -= (i & -i)) {
+			for(int j = y + 1; j > 0; j -= (j & -j)) {
 				sum += tree[i][j];
 			}
 		}
