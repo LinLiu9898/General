@@ -2,15 +2,20 @@ template <class T>
 struct segtree {
 	int n = 1;
 	vector<T> tree;
+	const T unit = 0LL;
+	// comb(a, unit) = a
 	T comb(T a, T b) {
 		return a + b;
 	}
-	segtree(vector<int> a) {
+	segtree(vector<T> a) {
+		init(a);
+	}
+	void init(vector<T> a) {
 		while(n < si(a)) {
 			n *= 2;
 		}
-		while(si(a) < n) {
-			a.pb(0LL);
+		for(int i = si(a); i < n; ++i) {
+			a.pb(unit);
 		}
 		assert(si(a) == n);
 		tree.resize(2 * n + 2);
@@ -21,28 +26,25 @@ struct segtree {
 			tree[i] = comb(tree[i * 2 + 1], tree[i * 2 + 2]);
 		}
 	}
-	void add(int pos, int dif) {
+	void set(int pos, T val) {
 		pos += n - 1;
-		tree[pos] += dif;
-		while(pos > 0) {
+		tree[pos] = val;
+		while(pos) {
 			pos = (pos - 1) / 2;
 			tree[pos] = comb(tree[pos * 2 + 1], tree[pos * 2 + 2]);
 		}
 	}
-	void set(int pos, int val) {
-		add(pos, val - tree[pos + n - 1]);
-	}
-	int qry(int lx, int rx, int l, int r, int node) {
+	T query(int lx, int rx, int l, int r, int node) {
 		if(lx >= l && rx <= r) {
 			return tree[node];
 		}
 		if(rx < l || lx > r) {
-			return 0;
+			return unit;
 		}
 		int mid = (lx + rx) / 2;
-		return comb(qry(lx, mid, l, r, node * 2 + 1), qry(mid + 1, rx, l, r, node * 2 + 2));
+		return comb(query(lx, mid, l, r, node * 2 + 1), query(mid + 1, rx, l, r, node * 2 + 2));
 	}
-	int query(int l, int r) {
-		return qry(0, n - 1, l, r, 0);
+	T query(int l, int r) {
+		return query(0, n - 1, l, r, 0);
 	}
 };
