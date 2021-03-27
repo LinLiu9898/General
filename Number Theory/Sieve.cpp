@@ -1,25 +1,37 @@
-const int N = 5e6;
+int cur_generated;
+vector<bool> isprime;
+vector<int> primes, spf;
 
-bitset<N> isprime;
-vector<int> primes;
-
-void sieve() {
-	isprime.set();
-	isprime[0] = isprime[1] = 0;
-	for(int i = 4; i < N; i += 2) {
-		isprime[i] = 0;
-	}
-	for(int i = 3; i * i < N; i += 2) {
-		if(!isprime[i]) {
-			continue;
+void sieve(int maximum) {
+	cur_generated = maximum;
+	isprime.assign(maximum + 10, true);
+	isprime[0] = isprime[1] = false;
+	spf.resize(maximum + 10);
+	iota(all(spf), 0LL);
+	for(int i = 2; i * i < maximum; ++i) {
+		if(isprime[i]) {
+			spf[i] = i;
+			for(int j = i * i; j < maximum; j += i) {
+				if(isprime[j]) {
+					isprime[j] = false;
+					spf[j] = i;
+				}
+			}
 		}
-		for(int j = i * i; j < N; j += i * 2) {
-			isprime[j] = 0;
-		}
 	}
-	for(int i = 2; i < N; ++i) {
+	for(int i = 0; i < maximum; ++i) {
 		if(isprime[i]) {
 			primes.pb(i);
 		}
 	}
+}
+
+vector<int> factor(int x) {
+	assert(x > 0 && cur_generated >= x);
+	vector<int> res;
+	while(x > 1) {
+		res.pb(spf[x]);
+		x /= spf[x];
+	}
+	return res;
 }
