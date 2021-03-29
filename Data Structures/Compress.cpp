@@ -1,12 +1,12 @@
-vector<int> cnt;
+vector<int> coord_compress;
 
-void compress(vector<int> x) {
-	cnt = x;
-	sort(all(cnt));
-	cnt.resize(unique(all(cnt)) - cnt.begin());
+void compress(vector<coord_compress> x) {
+	coord_compress = x;
+	sort(all(coord_compress));
+	coord_compress.resize(unique(all(coord_compress)) - coord_compress.begin());
 }
 int get(int x) {
-	int pos = lower_bound(all(cnt), x) - cnt.begin();
-	assert(cnt[pos] == x);
+	int pos = lower_bound(all(coord_compress), x) - coord_compress.begin();
+	assert(coord_compress[pos] == x);
 	return pos;
 }
