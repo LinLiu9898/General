@@ -1,6 +1,6 @@
 vector<int> coord_compress;
 
-void compress(vector<coord_compress> x) {
+void compress(const vector<int>& x) {
 	coord_compress = x;
 	sort(all(coord_compress));
 	coord_compress.resize(unique(all(coord_compress)) - coord_compress.begin());
