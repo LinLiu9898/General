@@ -1,4 +1,4 @@
-vector<int> z(string s) {
+vector<int> z(const string& s) {
 	int n = si(s);
 	vector<int> z(n);
 	int x = 0, y = 0;
