@@ -1,7 +1,31 @@
-template <int MD>
-struct modint {
-	int v; 
+using ul = uint64_t;
+using L = __uint128_t;
 
+struct FastMod {
+	ul b, m;
+	FastMod(ul _b) : b(_b), m((ul)((L(1) << 64) / _b)) {}
+	ul reduce(ul a) {
+		ul q = (ul)((L(m) * a) >> 64), r = a - q * b;
+		return r >= b ? r - b : r;
+	}
+};
+
+template <int id>
+struct modint {
+	int v;
+	static FastMod FM;
+
+	static int mod() {
+		return (int)FM.b;
+	}
+	void set_mod(int mod) {
+		v %= mod;
+		if(v < 0LL) {
+			v += mod;
+		}
+		assert(mod >= 1);
+		FM = FastMod(mod);
+	}
 	explicit operator int() const {
 		return v;
 	}
@@ -9,9 +33,9 @@ struct modint {
 		v = 0;
 	}
 	modint(int _v) {
-		v = (-MD < _v && _v < MD) ? _v : _v % MD;
+		v = (-mod() < _v && _v < mod()) ? _v : _v % mod();
 		if(v < 0) {
-			v += MD;
+			v += mod();
 		}
 	}
 	friend bool operator == (const modint& a, const modint& b) {
@@ -32,20 +56,20 @@ struct modint {
 	}
 	modint& operator += (const modint& m) {
 		v += m.v;
-		if(v >= MD) {
-			v -= MD;
+		if(v >= mod()) {
+			v -= mod();
 		}
 		return *this;
 	}
 	modint& operator -= (const modint& m) {
 		v -= m.v;
 		if(v < 0) {
-			v += MD;
+			v += mod();
 		}
 		return *this;
 	}
 	modint& operator *= (const modint& m) {
-		v = v * m.v % MD;
+		v = v * m.v % mod();
 		return *this;
 	}
 	modint& operator /= (const modint& m) {
@@ -53,7 +77,7 @@ struct modint {
 	}
 	friend modint inv(const modint& a) {
 		assert(a.v != 0);
-		return power(a, MD - 2);
+		return power(a, mod() - 2);
 	}
 	friend modint power(modint a, int p) {
 		modint res = 1;
@@ -88,7 +112,10 @@ struct modint {
 	}
 };
 
-using mint = modint<MOD>;
+template <int id>
+FastMod modint<id>::FM = FastMod(MOD);
+
+using mint = modint<0>;
 
 const int N = 1e6 + 10;
 
