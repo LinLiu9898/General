@@ -19,12 +19,12 @@ struct modint {
 		return (int)FM.b;
 	}
 	void set_mod(int mod) {
-		v %= mod;
+		assert(mod >= 1);
+		FM = FastMod(mod);
+		v = FM.reduce(v);
 		if(v < 0LL) {
 			v += mod;
 		}
-		assert(mod >= 1);
-		FM = FastMod(mod);
 	}
 	explicit operator int() const {
 		return v;
@@ -32,8 +32,8 @@ struct modint {
 	modint() {
 		v = 0;
 	}
-	modint(int _v) {
-		v = (-mod() < _v && _v < mod()) ? _v : _v % mod();
+	modint(int64_t _v) {
+		v = (-mod() < _v && _v < mod()) ? _v : FM.reduce(_v);
 		if(v < 0) {
 			v += mod();
 		}
@@ -49,7 +49,7 @@ struct modint {
 		return os;
 	}
 	friend istream& operator >> (istream& is, modint& m) {
-		int x;
+		int64_t x;
 		is >> x;
 		m.v = x;
 		return is;
@@ -69,7 +69,7 @@ struct modint {
 		return *this;
 	}
 	modint& operator *= (const modint& m) {
-		v = v * m.v % mod();
+		v = (int)FM.reduce((int64_t)v * m.v);
 		return *this;
 	}
 	modint& operator /= (const modint& m) {
@@ -79,7 +79,7 @@ struct modint {
 		assert(a.v != 0);
 		return power(a, mod() - 2);
 	}
-	friend modint power(modint a, int p) {
+	friend modint power(modint a, int64_t p) {
 		modint res = 1;
 		assert(p >= 0);
 		for(; p; p >>= 1, a *= a) {
