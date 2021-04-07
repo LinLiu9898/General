@@ -1,3 +1,6 @@
+// Credit: neal
+// https://codeforces.com/contest/1487/submission/107494456
+
 int highest_bit(int x) {
 	return x == 0 ? -1 : 31 - __builtin_clz(x);
 }
