@@ -2,6 +2,7 @@ struct binlift {
 	int n, d = 0, timer;
 	vector<vector<int>> adj, par;
 	vector<int> depth, tin, tout;
+	bool is_built = false;
 
 	binlift(int _n) {
 		init(_n);
@@ -31,6 +32,7 @@ struct binlift {
 
 	void build() {
 		dfs(0, -1);
+		is_built = true;
 	}
 
 	void dfs(int u = 0, int p = -1) {
@@ -50,10 +52,12 @@ struct binlift {
 	}
 
 	bool is_anc(int u, int v) {
+		assert(is_built && "call build function you stupid donkey");
 		return tin[u] <= tin[v] && tout[u] >= tout[v];
 	}
 
 	int jump(int node, int k) {
+		assert(is_built && "call build function you stupid donkey");
 		if(depth[node] < k) {
 			return -1;
 		}
@@ -67,6 +71,7 @@ struct binlift {
 	}
 
 	int lca(int u, int v) {
+		assert(is_built && "call build function you stupid donkey");
 		if(is_anc(u, v)) {
 			return u;
 		}
@@ -83,6 +88,7 @@ struct binlift {
 	}
 
 	int dist(int u, int v) {
+		assert(is_built && "call build function you stupid donkey");
 		return depth[u] + depth[v] - 2 * depth[lca(u, v)];
 	}
 };
