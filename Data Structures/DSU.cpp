@@ -1,9 +1,11 @@
 template <class T>
 struct DSU {
 	vector<int> par, size;
+
 	DSU(int n) {
 		init(n);
 	}
+
 	void init(int n) {
 		par = vector<int>(n + 10);
 		size = vector<int>(n + 10, 1LL);
@@ -11,12 +13,15 @@ struct DSU {
 			par[i] = i;
 		}
 	}
+
 	int find(int u) {
 		return (par[u] == u ? u : par[u] = find(par[u]));
 	}
+
 	bool same(int u, int v) {
 		return find(u) == find(v);
 	}
+
 	void merge(int u, int v) {
 		u = find(u);
 		v = find(v);
