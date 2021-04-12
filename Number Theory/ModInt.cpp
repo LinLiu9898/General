@@ -19,12 +19,12 @@ struct modint {
 		return (int)FM.b;
 	}
 	void set_mod(int mod) {
-		assert(mod >= 1);
-		FM = FastMod(mod);
-		v = FM.reduce(v);
+		v %= mod;
 		if(v < 0LL) {
 			v += mod;
 		}
+		assert(mod >= 1);
+		FM = FastMod(mod);
 	}
 	explicit operator int() const {
 		return v;
@@ -32,8 +32,8 @@ struct modint {
 	modint() {
 		v = 0;
 	}
-	modint(int64_t _v) {
-		v = (-mod() < _v && _v < mod()) ? _v : FM.reduce(_v);
+	modint(int _v) {
+		v = (-mod() < _v && _v < mod()) ? _v : _v % mod();
 		if(v < 0) {
 			v += mod();
 		}
@@ -49,7 +49,7 @@ struct modint {
 		return os;
 	}
 	friend istream& operator >> (istream& is, modint& m) {
-		int64_t x;
+		int x;
 		is >> x;
 		m.v = x;
 		return is;
@@ -69,7 +69,7 @@ struct modint {
 		return *this;
 	}
 	modint& operator *= (const modint& m) {
-		v = (int)FM.reduce((int64_t)v * m.v);
+		v = v * m.v % mod();
 		return *this;
 	}
 	modint& operator /= (const modint& m) {
@@ -79,7 +79,7 @@ struct modint {
 		assert(a.v != 0);
 		return power(a, mod() - 2);
 	}
-	friend modint power(modint a, int64_t p) {
+	friend modint power(modint a, int p) {
 		modint res = 1;
 		assert(p >= 0);
 		for(; p; p >>= 1, a *= a) {
@@ -132,6 +132,9 @@ mint C(int n, int k) {
 }
 
 void precomp() {
+	if(is_precomped) {
+		return;
+	}
 	is_precomped = true;
 	fac[0] = fac[1] = 1;
 	for(int i = 2; i < N + 10; ++i) {
