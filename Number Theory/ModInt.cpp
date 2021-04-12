@@ -124,7 +124,7 @@ bool is_precomped = false;
 vector<mint> fac(N + 10), ifac(N + 10);
 
 mint C(int n, int k) {
-	assert(is_precomped);
+	assert(is_precomped && n < N);
 	if(k < 0 || k > n) {
 		return 0;
 	}
