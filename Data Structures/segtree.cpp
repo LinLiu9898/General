@@ -3,10 +3,12 @@ struct item {
 	static item neutral() {
 
 	}
+
 	template <class T>
 	void init(T x) {
 
 	}
+
 	static item merge(item a, item b) {
 
 	}
@@ -17,9 +19,11 @@ struct segtree {
 	int n = 1;
 	vector<item> tree;
 	const T unit = -1;
+
 	segtree(vector<T> a) {
 		init(a);
 	}
+
 	void init(vector<T> a) {
 		while(n < si(a)) {
 			n *= 2;
@@ -36,6 +40,7 @@ struct segtree {
 			tree[i] = item::merge(tree[i * 2 + 1], tree[i * 2 + 2]);
 		}
 	}
+
 	void set(int pos, T val) {
 		pos += n - 1;
 		tree[pos].init(val);
@@ -44,6 +49,7 @@ struct segtree {
 			tree[pos] = item::merge(tree[pos * 2 + 1], tree[pos * 2 + 2]);
 		}
 	}
+
 	item query(int lx, int rx, int l, int r, int node) {
 		if(lx >= l && rx <= r) {
 			return tree[node];
@@ -54,6 +60,7 @@ struct segtree {
 		int mid = (lx + rx) / 2;
 		return item::merge(query(lx, mid, l, r, node * 2 + 1), query(mid + 1, rx, l, r, node * 2 + 2));
 	}
+
 	item query(int l, int r) {
 		l = max(l, 0LL);
 		r = min(r, n - 1);
