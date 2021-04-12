@@ -18,6 +18,7 @@ struct modint {
 	static int mod() {
 		return (int)FM.b;
 	}
+
 	void set_mod(int mod) {
 		v %= mod;
 		if(v < 0LL) {
@@ -26,34 +27,42 @@ struct modint {
 		assert(mod >= 1);
 		FM = FastMod(mod);
 	}
+
 	explicit operator int() const {
 		return v;
 	}
+
 	modint() {
 		v = 0;
 	}
+
 	modint(int _v) {
 		v = (-mod() < _v && _v < mod()) ? _v : _v % mod();
 		if(v < 0) {
 			v += mod();
 		}
 	}
+
 	friend bool operator == (const modint& a, const modint& b) {
 		return a.v == b.v;
 	}
+
 	friend bool operator != (const modint& a, const modint& b) {
 		return !(a == b);
 	}
+
 	friend ostream& operator << (ostream& os, const modint& m) {
 		os << m.v;
 		return os;
 	}
+
 	friend istream& operator >> (istream& is, modint& m) {
 		int x;
 		is >> x;
 		m.v = x;
 		return is;
 	}
+
 	modint& operator += (const modint& m) {
 		v += m.v;
 		if(v >= mod()) {
@@ -61,6 +70,7 @@ struct modint {
 		}
 		return *this;
 	}
+
 	modint& operator -= (const modint& m) {
 		v -= m.v;
 		if(v < 0) {
@@ -68,17 +78,21 @@ struct modint {
 		}
 		return *this;
 	}
+
 	modint& operator *= (const modint& m) {
 		v = v * m.v % mod();
 		return *this;
 	}
+
 	modint& operator /= (const modint& m) {
 		return (*this) *= inv(m);
 	}
+
 	friend modint inv(const modint& a) {
 		assert(a.v != 0);
 		return power(a, mod() - 2);
 	}
+
 	friend modint power(modint a, int p) {
 		modint res = 1;
 		assert(p >= 0);
@@ -89,24 +103,31 @@ struct modint {
 		}
 		return res;
 	}
+
 	modint operator - () const {
 		return modint(-v);
 	}
+
 	modint& operator ++ () {
 		return *this += 1;
 	}
+
 	modint& operator -- () {
 		return *this -= 1;
 	}
+
 	friend modint operator + (modint a, const modint& b) {
 		return a += b;
 	}
+
 	friend modint operator - (modint a, const modint& b) {
 		return a -= b;
 	}
+
 	friend modint operator * (modint a, const modint& b) {
 		return a *= b;
 	}
+
 	friend modint operator / (modint a, const modint& b) {
 		return a /= b;
 	}
