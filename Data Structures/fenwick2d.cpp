@@ -3,11 +3,13 @@ struct fenwick2d {
 	int n, m;
 	vector<vector<T>> tree;
 	const T unit = 0LL;
+
 	fenwick2d(const int& _n, const int& _m) {
 		n = _n;
 		m = _m;
 		tree.assign(n + 2, vector<T>(m + 2, unit));
 	}
+
 	void add(int x, int y, int dif) {
 		for(int i = x + 1; i <= n; i += (i & -i)) {
 			for(int j = y + 1; j <= n; j += (j & -j)) {
@@ -15,6 +17,7 @@ struct fenwick2d {
 			}
 		}
 	}
+
 	T query(int x, int y) {
 		T sum = 0;
 		for(int i = x + 1; i > 0; i -= (i & -i)) {
@@ -24,6 +27,7 @@ struct fenwick2d {
 		}
 		return sum;
 	}
+
 	T query(int x, int y, int x1, int y1) {
 		return query(x1, y1) - query(x1, y - 1) - query(x - 1, y1) + query(x - 1, y - 1);
 	}
