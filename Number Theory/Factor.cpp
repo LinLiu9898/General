@@ -62,3 +62,16 @@ vector<int> factor(int n) {
 	l.insert(l.end(), all(r));
 	return l;
 }
+
+vector<int> divs(int n) {
+	vector<int> div;
+	for(int i = 1; i * i <= n; ++i) {
+		if(n % i == 0) {
+			div.pb(i);
+			if(i * i != n) {
+				div.pb(n / i);
+			}
+		}
+	}
+	return div;
+}
