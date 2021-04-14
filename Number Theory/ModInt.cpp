@@ -1,6 +1,6 @@
 using ul = uint64_t;
 using L = __uint128_t;
-
+ 
 struct FastMod {
 	ul b, m;
 	FastMod(ul _b) : b(_b), m((ul)((L(1) << 64) / _b)) {}
@@ -12,27 +12,23 @@ struct FastMod {
 		return r >= b ? r - b : r;
 	}
 };
-
+ 
 template <int id>
 struct modint {
 	int v;
 	static FastMod FM;
-
+ 
 	static int mod() {
 		return (int)FM.b;
 	}
 
-	void safe_mod(int& a) {
-		a = FM.reduce(a);
-		if(a < 0) {
-			a += mod();
-		}
-	}
-
 	void set_mod(int mod) {
+		v %= mod;
+		if(v < 0LL) {
+			v += mod;
+		}
 		assert(mod >= 1);
 		FM = FastMod(mod);
-		safe_mod(v);
 	}
 
 	explicit operator int() const {
@@ -44,8 +40,10 @@ struct modint {
 	}
 
 	modint(int _v) {
-		v = _v;
-		safe_mod(v);
+		v = (-mod() < _v && _v < mod()) ? _v : _v % mod();
+		if(v < 0) {
+			v += mod();
+		}
 	}
 
 	friend bool operator == (const modint& a, const modint& b) {
@@ -70,19 +68,22 @@ struct modint {
 
 	modint& operator += (const modint& m) {
 		v += m.v;
-		safe_mod(v);
+		if(v >= mod()) {
+			v -= mod();
+		}
 		return *this;
 	}
 
 	modint& operator -= (const modint& m) {
 		v -= m.v;
-		safe_mod(v);
+		if(v < 0) {
+			v += mod();
+		}
 		return *this;
 	}
 
 	modint& operator *= (const modint& m) {
-		v *= m.v;
-		safe_mod(v);
+		v = (int)FM.reduce(v * m.v);
 		return *this;
 	}
 
@@ -143,7 +144,6 @@ using mint = modint<0>;
 const int N = 1e6 + 10;
 
 bool is_precomped = false;
-
 vector<mint> fac(N + 10), ifac(N + 10);
 
 mint C(int n, int k) {
