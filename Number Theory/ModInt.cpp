@@ -5,6 +5,9 @@ struct FastMod {
 	ul b, m;
 	FastMod(ul _b) : b(_b), m((ul)((L(1) << 64) / _b)) {}
 	ul reduce(ul a) {
+		if(b == 1) {
+			return 0;
+		}
 		ul q = (ul)((L(m) * a) >> 64), r = a - q * b;
 		return r >= b ? r - b : r;
 	}
@@ -19,13 +22,17 @@ struct modint {
 		return (int)FM.b;
 	}
 
-	void set_mod(int mod) {
-		v %= mod;
-		if(v < 0LL) {
-			v += mod;
+	void safe_mod(int& a) {
+		a = FM.reduce(a);
+		if(a < 0) {
+			a += mod();
 		}
+	}
+
+	void set_mod(int mod) {
 		assert(mod >= 1);
 		FM = FastMod(mod);
+		safe_mod(v);
 	}
 
 	explicit operator int() const {
@@ -37,10 +44,8 @@ struct modint {
 	}
 
 	modint(int _v) {
-		v = (-mod() < _v && _v < mod()) ? _v : _v % mod();
-		if(v < 0) {
-			v += mod();
-		}
+		v = _v;
+		safe_mod(v);
 	}
 
 	friend bool operator == (const modint& a, const modint& b) {
@@ -65,22 +70,19 @@ struct modint {
 
 	modint& operator += (const modint& m) {
 		v += m.v;
-		if(v >= mod()) {
-			v -= mod();
-		}
+		safe_mod(v);
 		return *this;
 	}
 
 	modint& operator -= (const modint& m) {
 		v -= m.v;
-		if(v < 0) {
-			v += mod();
-		}
+		safe_mod(v);
 		return *this;
 	}
 
 	modint& operator *= (const modint& m) {
-		v = v * m.v % mod();
+		v *= m.v;
+		safe_mod(v);
 		return *this;
 	}
 
