@@ -1,3 +1,14 @@
+template <class T>
+T power(T a, int p) {
+	T res = 1;
+	for(; p; p >>= 1, a *= a) {
+		if(p & 1) {
+			res *= a;
+		}
+	}
+	return res;
+}
+
 struct modint {
 	using value_type = int;
 
@@ -67,17 +78,6 @@ struct modint {
 	friend modint inv(const modint& a) {
 		assert(a.v != 0);
 		return power(a, mod - 2);
-	}
-
-	friend modint power(modint a, int p) {
-		modint res = 1;
-		assert(p >= 0);
-		for(; p; p >>= 1, a *= a) {
-			if(p & 1) {
-				res *= a;
-			}
-		}
-		return res;
 	}
 
 	modint operator - () const {
