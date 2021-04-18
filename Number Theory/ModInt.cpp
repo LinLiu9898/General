@@ -1,35 +1,8 @@
-using ul = uint64_t;
-using L = __uint128_t;
- 
-struct FastMod {
-	ul b, m;
-	FastMod(ul _b) : b(_b), m((ul)((L(1) << 64) / _b)) {}
-	ul reduce(ul a) {
-		if(b == 1) {
-			return 0;
-		}
-		ul q = (ul)((L(m) * a) >> 64), r = a - q * b;
-		return r >= b ? r - b : r;
-	}
-};
- 
-template <int id>
 struct modint {
-	int v;
-	static FastMod FM;
- 
-	static int mod() {
-		return (int)FM.b;
-	}
+	using value_type = int;
 
-	void set_mod(int mod) {
-		v %= mod;
-		if(v < 0LL) {
-			v += mod;
-		}
-		assert(mod >= 1);
-		FM = FastMod(mod);
-	}
+	static value_type mod;
+	value_type v;
 
 	explicit operator int() const {
 		return v;
@@ -40,9 +13,9 @@ struct modint {
 	}
 
 	modint(int _v) {
-		v = (-mod() < _v && _v < mod()) ? _v : _v % mod();
+		v = (-mod < _v && _v < mod) ? _v : _v % mod;
 		if(v < 0) {
-			v += mod();
+			v += mod;
 		}
 	}
 
@@ -68,8 +41,8 @@ struct modint {
 
 	modint& operator += (const modint& m) {
 		v += m.v;
-		if(v >= mod()) {
-			v -= mod();
+		if(v >= mod) {
+			v -= mod;
 		}
 		return *this;
 	}
@@ -77,13 +50,13 @@ struct modint {
 	modint& operator -= (const modint& m) {
 		v -= m.v;
 		if(v < 0) {
-			v += mod();
+			v += mod;
 		}
 		return *this;
 	}
 
 	modint& operator *= (const modint& m) {
-		v = (int)FM.reduce(v * m.v);
+		v = v * m.v % mod;
 		return *this;
 	}
 
@@ -93,7 +66,7 @@ struct modint {
 
 	friend modint inv(const modint& a) {
 		assert(a.v != 0);
-		return power(a, mod() - 2);
+		return power(a, mod - 2);
 	}
 
 	friend modint power(modint a, int p) {
@@ -136,18 +109,22 @@ struct modint {
 	}
 };
 
-template <int id>
-FastMod modint<id>::FM = FastMod(MOD);
+modint::value_type modint::mod = MOD;
 
-using mint = modint<0>;
+using mint = modint;
 
-const int N = 1e6 + 10;
+void set_mod(int x) {
+	modint::mod = x;
+}
+
+const int N = 5e5 + 10;
 
 bool is_precomped = false;
+
 vector<mint> fac(N + 10), ifac(N + 10);
 
 mint C(int n, int k) {
-	assert(is_precomped && n < N);
+	assert(is_precomped && "call precomp, retard");
 	if(k < 0 || k > n) {
 		return 0;
 	}
