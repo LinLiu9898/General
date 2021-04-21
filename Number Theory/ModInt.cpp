@@ -1,14 +1,3 @@
-template <class T>
-T power(T a, int p) {
-	T res = 1;
-	for(; p; p >>= 1, a *= a) {
-		if(p & 1) {
-			res *= a;
-		}
-	}
-	return res;
-}
-
 struct modint {
 	using value_type = int;
 
@@ -72,12 +61,30 @@ struct modint {
 	}
 
 	modint& operator /= (const modint& m) {
-		return (*this) *= inv(m);
+		return (*this) *= m.inv();
 	}
 
-	friend modint inv(const modint& a) {
-		assert(a.v != 0);
-		return power(a, mod - 2);
+	friend modint power(modint a, int p) {
+		modint ans = 1;
+		assert(p >= 0);
+		for(; p; a *= a, p >>= 1) {
+			if(p & 1) {
+				ans *= a;
+			}
+		}
+		return ans;
+	}
+
+	modint inv() const {
+		value_type a = v, b = mod, x = 0, y = 1;
+		while(a != 0) {
+			value_type k = b / a;
+			b -= k * a;
+			x -= k * y;
+			swap(a, b);
+			swap(x, y);
+		}
+		return modint(x);
 	}
 
 	modint operator - () const {
