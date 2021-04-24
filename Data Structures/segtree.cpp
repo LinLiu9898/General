@@ -14,17 +14,20 @@ struct item {
 	}
 };
 
-template <class T>
+template <class T, class H = int>
 struct segtree {
 	int n = 1;
-	vector<item> tree;
-	const T unit = -1;
+	vector<T> tree;
+	const H unit = -1;
 
-	segtree(vector<T> a) {
-		init(a);
+	segtree(int _n) {
+		while(n < _n) {
+			n *= 2;
+		}
+		tree = vector<T>(2 * n + 5, T());
 	}
 
-	void init(vector<T> a) {
+	void init(vector<H> a) {
 		while(n < si(a)) {
 			n *= 2;
 		}
@@ -37,35 +40,35 @@ struct segtree {
 			tree[i].init(a[i - n + 1]);
 		}
 		for(int i = n - 2; i >= 0; --i) {
-			tree[i] = item::merge(tree[i * 2 + 1], tree[i * 2 + 2]);
+			tree[i] = T::merge(tree[i * 2 + 1], tree[i * 2 + 2]);
 		}
 	}
 
-	void set(int pos, T val) {
+	void set(int pos, H val) {
 		pos += n - 1;
 		tree[pos].init(val);
 		while(pos) {
 			pos = (pos - 1) / 2;
-			tree[pos] = item::merge(tree[pos * 2 + 1], tree[pos * 2 + 2]);
+			tree[pos] = T::merge(tree[pos * 2 + 1], tree[pos * 2 + 2]);
 		}
 	}
 
-	item query(int lx, int rx, int l, int r, int node) {
+	T query(int lx, int rx, int l, int r, int node) {
 		if(lx >= l && rx <= r) {
 			return tree[node];
 		}
 		if(rx < l || lx > r) {
-			return item::neutral();
+			return T::neutral();
 		}
 		int mid = (lx + rx) / 2;
-		return item::merge(query(lx, mid, l, r, node * 2 + 1), query(mid + 1, rx, l, r, node * 2 + 2));
+		return T::merge(query(lx, mid, l, r, node * 2 + 1), query(mid + 1, rx, l, r, node * 2 + 2));
 	}
 
-	item query(int l, int r) {
+	T query(int l, int r) {
 		l = max(l, 0LL);
 		r = min(r, n - 1);
 		if(l > r) {
-			return item();
+			return T();
 		}
 		return query(0, n - 1, l, r, 0);
 	}
