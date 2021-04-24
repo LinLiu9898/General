@@ -4,15 +4,18 @@ vector<int> primes, spf;
 bool is_built_sieve = false;
 
 void sieve(int maximum) {
+	if(is_built_sieve) {
+		assert(false && "Why build sieve again?");
+	}
 	cur_generated = maximum;
-	isprime.assign(maximum + 10, true);
+	isprime.assign(maximum + 5, true);
 	isprime[0] = isprime[1] = false;
-	spf.resize(maximum + 10);
+	spf.resize(maximum + 5);
 	iota(all(spf), 0LL);
-	for(int i = 2; i * i < maximum; ++i) {
+	for(int i = 2; i * i <= maximum + 1; ++i) {
 		if(isprime[i]) {
 			spf[i] = i;
-			for(int j = i * i; j < maximum; j += i) {
+			for(int j = i * i; j <= maximum + 1; j += i) {
 				if(isprime[j]) {
 					isprime[j] = false;
 					spf[j] = i;
@@ -50,16 +53,24 @@ vector<array<int, 2>> factor(int n) {
 		}
 		if(n % p == 0) {
 			res.pb({p, 0});
-			do {
+			while(n % p == 0) {
 				n /= p;
 				++res.back()[1];
-			} while(n % p == 0);
+			}
 		}
 	}
 	if(n > 1) {
 		res.pb({n, 1});
 	}
 	return res;
+}
+
+int phi(int x) {
+	vector<array<int, 2>> v = factor(x);
+	trav(i, v) {
+		x = x / i[0] * (i[0] - 1);
+	}
+	return x;
 }
 
 int cano(int x) {
