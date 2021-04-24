@@ -50,7 +50,7 @@ int pollard(int n) {
 	return __gcd(prd, n);
 }
 
-vector<int> factor(int n) {
+vector<int> factor_fast(int n) {
 	if(n == 1) {
 		return {};
 	}
@@ -58,9 +58,24 @@ vector<int> factor(int n) {
 		return {n};
 	}
 	int x = pollard(n);
-	auto l = factor(x), r = factor(n / x);
+	auto l = factor_fast(x);
+	auto r = factor_fast(n / x);
 	l.insert(l.end(), all(r));
 	return l;
+}
+
+vector<array<int, 2>> fact(int n) {
+	vector<int> x = factor_fast(n);
+	sort(all(x));
+	map<int, int> cnt;
+	trav(i, x) {
+		++cnt[i];
+	}
+	vector<array<int, 2>> res;
+	trav(i, cnt) {
+		res.pb({i.f, i.s});
+	}
+	return res;
 }
 
 vector<int> divs(int n) {
