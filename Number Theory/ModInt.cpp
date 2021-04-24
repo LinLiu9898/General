@@ -124,7 +124,7 @@ void set_mod(int x) {
 	modint::mod = x;
 }
 
-const int N = 5e5 + 10;
+const int N = ;
 
 bool is_precomped = false;
 
