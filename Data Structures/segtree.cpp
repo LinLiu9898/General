@@ -65,7 +65,7 @@ struct segtree {
 	}
 
 	T query(int l, int r) {
-		l = max(l, 0LL);
+		l = max(l, int(0));
 		r = min(r, n - 1);
 		if(l > r) {
 			return T();
