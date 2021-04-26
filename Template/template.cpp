@@ -1,7 +1,7 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-#define int long long
+#define int int64_t
 #define trav(i, a) for(auto& i: a)
 #define all(a) a.begin(), a.end()
 #define rall(a) a.rbegin(), a.rend()
