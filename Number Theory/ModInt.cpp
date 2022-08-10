@@ -1,17 +1,19 @@
-struct modint {
-	using value_type = int;
-
-	static value_type mod;
-	value_type v;
-
-	explicit operator int() const {
-		return v;
+template <class T>
+T power(T a, int p) {
+	T ans = 1;
+	assert(p >= 0);
+	for(; p; a *= a, p >>= 1) {
+		if(p & 1) {
+			ans *= a;
+		}
 	}
+	return ans;
+}
 
-	modint() {
-		v = 0;
-	}
+template <int mod = MOD> struct modint {
+	int v;
 
+	modint() : v(0) {}
 	modint(int _v) {
 		v = (-mod < _v && _v < mod) ? _v : _v % mod;
 		if(v < 0) {
@@ -19,19 +21,21 @@ struct modint {
 		}
 	}
 
-	friend bool operator == (const modint& a, const modint& b) {
-		return a.v == b.v;
+	explicit operator int() const {
+		return v;
 	}
 
-	friend bool operator != (const modint& a, const modint& b) {
-		return !(a == b);
+	bool operator == (const modint& a) {
+		return v == a.v;
+	}
+	bool operator != (const modint& a) {
+		return v != a.v;
 	}
 
 	friend ostream& operator << (ostream& os, const modint& m) {
 		os << m.v;
 		return os;
 	}
-
 	friend istream& operator >> (istream& is, modint& m) {
 		int x;
 		is >> x;
@@ -40,91 +44,54 @@ struct modint {
 	}
 
 	modint& operator += (const modint& m) {
-		v += m.v;
-		if(v >= mod) {
+		if((v += m.v) >= mod) {
 			v -= mod;
 		}
 		return *this;
 	}
-
 	modint& operator -= (const modint& m) {
-		v -= m.v;
-		if(v < 0) {
+		if((v -= m.v) < 0) {
 			v += mod;
 		}
 		return *this;
 	}
-
 	modint& operator *= (const modint& m) {
 		v = v * m.v % mod;
 		return *this;
 	}
-
 	modint& operator /= (const modint& m) {
 		return (*this) *= m.inv();
 	}
-
-	friend modint power(modint a, int p) {
-		modint ans = 1;
-		assert(p >= 0);
-		for(; p; a *= a, p >>= 1) {
-			if(p & 1) {
-				ans *= a;
-			}
-		}
-		return ans;
-	}
-
 	modint inv() const {
-		value_type a = v, b = mod, x = 0, y = 1;
-		while(a != 0) {
-			value_type k = b / a;
-			b -= k * a;
-			x -= k * y;
-			swap(a, b);
-			swap(x, y);
-		}
-		return modint(x);
+		return power(modint(v), mod - 2);
 	}
-
 	modint operator - () const {
 		return modint(-v);
 	}
-
 	modint& operator ++ () {
 		return *this += 1;
 	}
-
 	modint& operator -- () {
 		return *this -= 1;
 	}
-
 	friend modint operator + (modint a, const modint& b) {
 		return a += b;
 	}
-
 	friend modint operator - (modint a, const modint& b) {
 		return a -= b;
 	}
-
 	friend modint operator * (modint a, const modint& b) {
 		return a *= b;
 	}
-
 	friend modint operator / (modint a, const modint& b) {
 		return a /= b;
 	}
 };
 
-modint::value_type modint::mod = MOD;
+using mint = modint<MOD>;
 
-using mint = modint;
-
-void set_mod(int x) {
-	modint::mod = x;
-}
-
-const int N = ;
+/*
+const int N = 2;
 
 bool is_precomped = false;
 
@@ -151,4 +118,4 @@ void precomp() {
 	for(int i = N + 9; i > 0; --i) {
 		ifac[i - 1] = i * ifac[i];
 	}
-}
+}*/
