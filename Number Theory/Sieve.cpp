@@ -72,15 +72,3 @@ int phi(int x) {
 	}
 	return x;
 }
-
-int cano(int x) {
-	assert(is_built_sieve);
-	vector<array<int, 2>> prime_fac = factor(x);
-	int prod = 1;
-	trav(i, prime_fac) {
-		if(i[1] % 2 != 0) {
-			prod *= i[0];
-		}
-	}
-	return prod;
-}
