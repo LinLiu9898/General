@@ -10,14 +10,14 @@ T power(T a, int p) {
 	return ans;
 }
 
-template <int mod = MOD> struct modint {
+struct modint {
 	int v;
 
 	modint() : v(0) {}
 	modint(int _v) {
-		v = (-mod < _v && _v < mod) ? _v : _v % mod;
+		v = (-MOD < _v && _v < MOD) ? _v : _v % MOD;
 		if(v < 0) {
-			v += mod;
+			v += MOD;
 		}
 	}
 
@@ -44,26 +44,26 @@ template <int mod = MOD> struct modint {
 	}
 
 	modint& operator += (const modint& m) {
-		if((v += m.v) >= mod) {
-			v -= mod;
+		if((v += m.v) >= MOD) {
+			v -= MOD;
 		}
 		return *this;
 	}
 	modint& operator -= (const modint& m) {
 		if((v -= m.v) < 0) {
-			v += mod;
+			v += MOD;
 		}
 		return *this;
 	}
 	modint& operator *= (const modint& m) {
-		v = v * m.v % mod;
+		v = v * m.v % MOD;
 		return *this;
 	}
 	modint& operator /= (const modint& m) {
 		return (*this) *= m.inv();
 	}
 	modint inv() const {
-		return power(modint(v), mod - 2);
+		return power(modint(v), MOD - 2);
 	}
 	modint operator - () const {
 		return modint(-v);
@@ -88,7 +88,7 @@ template <int mod = MOD> struct modint {
 	}
 };
 
-using mint = modint<MOD>;
+using mint = modint;
 
 /*
 const int N = 2;
