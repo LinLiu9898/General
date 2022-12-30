@@ -1,4 +1,4 @@
-// Reference: https://codeforces.com/contest/1731/submission/187198874
+// Reference: https://codeforces.com/contest/1731/submission/187198977
 
 vector<int> log(n + 1);
 	for(int i = 2; i < n + 1; ++i) {
