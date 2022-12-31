@@ -50,6 +50,7 @@ int pollard(int n) {
 	return __gcd(prd, n);
 }
 
+// https://codeforces.com/contest/1033/submission/44009089 is faster
 vector<int> factor_fast(int n) {
 	if(n == 1) {
 		return {};
