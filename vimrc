@@ -83,8 +83,8 @@ autocmd BufRead,BufNewFile   *.tex inoremap } }
 nnoremap <C-Tab> :tabn<CR>
 nnoremap <C-w> :wq<CR>
 
-nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>:call TrimEndLines()<CR>21<CR>
-nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>:call TrimEndLines()<CR>24<CR>
+nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>:call TrimEndLines()<CR>20<CR>
+nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>:call TrimEndLines()<CR>23<CR>
 nnoremap frac :-1read C:\Users\Home-T410\Desktop\Template\Fractions.cpp<CR>
 nnoremap umap :-1read C:\Users\Home-T410\Desktop\Template\Unordered_MapHash.cpp<CR>
 nnoremap mint :-1read C:\Users\Home-T410\Desktop\Template\ModInt.cpp<CR>
