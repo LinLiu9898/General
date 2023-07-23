@@ -51,13 +51,13 @@ struct binlift {
 		tout[u] = timer - 1;
 	}
 
-	bool is_anc(int u, int v) {
-		assert(is_built && "call build function you stupid donkey");
+	bool is_anc(int u, int v) { // returns if u is the ancestor of v
+		assert(is_built && "call build function");
 		return tin[u] <= tin[v] && tout[u] >= tout[v];
 	}
 
 	int jump(int node, int k) {
-		assert(is_built && "call build function you stupid donkey");
+		assert(is_built && "call build function");
 		if(depth[node] < k) {
 			return -1;
 		}
@@ -71,7 +71,7 @@ struct binlift {
 	}
 
 	int lca(int u, int v) {
-		assert(is_built && "call build function you stupid donkey");
+		assert(is_built && "call build function");
 		if(is_anc(u, v)) {
 			return u;
 		}
@@ -88,7 +88,7 @@ struct binlift {
 	}
 
 	int dist(int u, int v) {
-		assert(is_built && "call build function you stupid donkey");
+		assert(is_built && "call build function");
 		return depth[u] + depth[v] - 2 * depth[lca(u, v)];
 	}
 };
