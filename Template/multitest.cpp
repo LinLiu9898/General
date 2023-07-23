@@ -8,7 +8,6 @@ using namespace std;
 #define si(a) ((int)(a).size())
 #define ins insert
 #define pb push_back
-#define mp make_pair
 #define f first
 #define s second
 
