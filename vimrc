@@ -17,10 +17,14 @@ colorscheme onedark
 au GUIEnter * simalt ~x
 autocmd GUIEnter * set vb t_vb=
 
+"set guifont=Monaco:h200
+"set guifont=Courier:h24
 set backspace=indent,eol,start
+"set guifont=Lucida_Console:h11:cANSI:qDRAFT
+set guifont=Consolas:h15
 set is
 set clipboard=unnamed
-set guifont=*
+"set guifont=*
 set tabstop=4
 set shiftwidth=4
 set smartindent
@@ -37,6 +41,7 @@ map <F2> :%y <CR>:w <CR>
 "map <F5> :w <CR>:%y <CR>
 map vimrc :e! $HOME\_vimrc<CR>
 
+"autocmd TextChanged,TextChangedI *.md silent write
 function GuiTabLabel()
 	let label = ''
 	let bufnrlist = tabpagebuflist(v:lnum)
@@ -83,8 +88,8 @@ autocmd BufRead,BufNewFile   *.tex inoremap } }
 nnoremap <C-Tab> :tabn<CR>
 nnoremap <C-w> :wq<CR>
 
-nnoremap test :-1read C:\Users\Home-T410\Desktop\Template\test.cpp<CR>:call TrimEndLines()<CR>20<CR>
-nnoremap cpp :-1read C:\Users\Home-T410\Desktop\Template\template.cpp<CR>:call TrimEndLines()<CR>23<CR>
+nnoremap test :-1read C:\Users\lin\Desktop\Template\multitest.cpp <CR>:call TrimEndLines()<CR>20<CR>
+nnoremap cpp :-1read C:\Users\lin\Desktop\Template\template.cpp <CR>:call TrimEndLines()<CR>23<CR>
 nnoremap frac :-1read C:\Users\Home-T410\Desktop\Template\Fractions.cpp<CR>
 nnoremap umap :-1read C:\Users\Home-T410\Desktop\Template\Unordered_MapHash.cpp<CR>
 nnoremap mint :-1read C:\Users\Home-T410\Desktop\Template\ModInt.cpp<CR>
@@ -105,11 +110,12 @@ nnoremap mat :-1read C:\Users\Home-T410\Desktop\Template\MatExpo.cpp<CR>
 nnoremap rmq :-1read C:\Users\Home-T410\Desktop\Template\RMQ.cpp<CR>
 nnoremap stringhash :-1read C:\Users\Home-T410\Desktop\Template\StringHash.cpp<CR>
 nnoremap rand :-1read C:\Users\Home-T410\Desktop\Template\rand.cpp<CR>
-nnoremap open : :tabnew C:\Users\Home-T410\Desktop\Vim\A.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\B.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\C.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\D.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\E.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\F.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\G.cpp<CR>:tabnew C:\Users\Home-T410\Desktop\Vim\H.cpp<CR>:tabr<CR>:q!<CR>
+nnoremap open : :tabnew C:\Users\lin\Desktop\Coding\A.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\B.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\C.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\D.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\E.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\F.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\G.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\H.cpp<CR>:tabr<CR>:q!<CR>
 
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -O2 -Wall % -o %:r -Wl,--stack,268435456 && %:r.exe <CR>
 autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
 autocmd filetype cpp nnoremap <F10> :!%:r<CR>
+autocmd filetype cpp nnoremap <C-X> :w <bar> !g++ -std=c++17 % -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456 && %:r.exe <CR>
 autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $$
 autocmd filetype cpp nnoremap <C-A> :%s#\($\n\s*\)\+\%$##<CR>
 
