@@ -1,12 +1,15 @@
 # General
 This library is straight up trash, use at ur own risk.
 
+Follow vscode's https://code.visualstudio.com/docs/cpp/config-mingw tutorial on mingw and editing environment path variables.
 
 Note to self:
 When installing Vundle, use 
 ```
 git clone https://github.com/VundleVim/Vundle.vim.git ~/vimfiles/plugin/Vundle.vim
 ```
+
+Remember :PluginInstall
 
 Then, when re-mapping CapsLock to Esc, use Autohotkey, create a new .ahk script, copy 
 ```
