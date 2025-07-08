@@ -3,8 +3,10 @@ This library is straight up trash, use at ur own risk.
 
 Follow vscode's https://code.visualstudio.com/docs/cpp/config-mingw tutorial on mingw and editing environment path variables.
 
+Install git for windows.
+
 Note to self:
-When installing Vundle, use 
+When installing Vundle, run this following command in git bash
 ```
 git clone https://github.com/VundleVim/Vundle.vim.git ~/vimfiles/plugin/Vundle.vim
 ```
