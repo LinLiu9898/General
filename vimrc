@@ -110,11 +110,11 @@ nnoremap mat :-1read C:\Users\Home-T410\Desktop\Template\MatExpo.cpp<CR>
 nnoremap rmq :-1read C:\Users\Home-T410\Desktop\Template\RMQ.cpp<CR>
 nnoremap stringhash :-1read C:\Users\Home-T410\Desktop\Template\StringHash.cpp<CR>
 nnoremap rand :-1read C:\Users\Home-T410\Desktop\Template\rand.cpp<CR>
-nnoremap open : :tabnew C:\Users\lin\Desktop\Coding\A.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\B.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\C.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\D.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\E.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\F.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\G.cpp<CR>:tabnew C:\Users\lin\Desktop\Coding\H.cpp<CR>:tabr<CR>:q!<CR>
+nnoremap open : :tabnew C:\Users\linli\OneDrive\Desktop\Coding\A.cpp<CR>:tabnew C:\Users\linli\OneDrive\Desktop\Coding\B.cpp<CR>:tabnew C:\Users\linli\OneDrive\Desktop\Coding\C.cpp<CR>:tabnew C:\Users\linli\OneDrive\Desktop\Coding\D.cpp<CR>:tabnew C:\Users\linli\OneDrive\Desktop\Coding\E.cpp<CR>:tabnew C:\Users\linli\OneDrive\Desktop\Coding\F.cpp<CR>:tabnew C:\Users\linli\OneDrive\Desktop\Coding\G.cpp<CR>:tabnew C:\Users\linli\OneDrive\Desktop\Coding\H.cpp<CR>:tabr<CR>:q!<CR>
 
 "autocmd filetype cpp nnoremap <F5> :w <bar> !g++ -std=c++17 -O2 -Wall % -o %:r -Wl,--stack,268435456 && %:r.exe <CR>
-autocmd filetype cpp nnoremap <F9> :w <bar> !g++ -std=c++17 % -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
-autocmd filetype cpp nnoremap <F10> :!%:r<CR>
+autocmd filetype cpp nnoremap <F1> :w <bar> !g++ -std=c++17 % -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456<CR>
+autocmd filetype cpp nnoremap <F2> :!%:r<CR>
 autocmd filetype cpp nnoremap <C-X> :w <bar> !g++ -std=c++17 % -O2 -Wuninitialized -Wparentheses -Wall -Wextra -Wno-sign-conversion -Wshadow -DLOCAL -o %:r -Wl,--stack,268435456 && %:r.exe <CR>
 autocmd filetype cpp nnoremap <C-C> :s/^\(\s*\)/\1\/\/<CR> :s/^\(\s*\)\/\/\/\//\1<CR> $$
 autocmd filetype cpp nnoremap <C-A> :%s#\($\n\s*\)\+\%$##<CR>
